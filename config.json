@@ -1,0 +1,24 @@
+﻿{
+	"url": "0.0.0.0",
+	"port": "3000",
+	"db": {
+		"url": "127.0.0.1",
+		"port": "27017",
+		"login": "Hailgrim",
+		"password": "1000lagov"
+	},
+	"errors": {
+		"unknown": "Произошла неизвестная ошибка",
+		"404": "Ошибка 404: Страница не найдена"
+	},
+	"MIMETypes": {
+		"css": "text/css",
+		"js": "application/javascript",
+		"json": "application/json",
+		"mp3": "audio/mpeg",
+		"gif": "image/gif",
+		"jpeg": "image/jpeg",
+		"jpg": "image/jpeg",
+		"png": "image/png"
+	}
+}
