@@ -4,6 +4,7 @@ const server = new http.Server(); // создание объекта серве�
 const qs = require('querystring'); // модуль для парсинга тела POST/GET-запроса в виде urlencoded-строки
 const fs = require('fs'); // модуль файловой системы
 const Readable = require('stream').Readable; // конструктор для создания читаемого потока, который берётся из модуля потоков
+const port = process.env.port || 5000;
 
 server.on('request', function(req, res){
 
@@ -21,4 +22,4 @@ server.on('request', function(req, res){
 	
 });
 
-server.listen(config.port, config.url);
+server.listen(port, config.url);
