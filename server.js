@@ -22,4 +22,4 @@ server.on('request', function(req, res){
 	
 });
 
-server.listen(port, config.url);
+server.listen(port);
