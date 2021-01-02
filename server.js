@@ -8,39 +8,66 @@ const port = process.env.PORT || config.port;
 
 server.on('request', function (req, res) {
 	var errorCode = false;
+	var path = req.url.split('/');
 
 	// Для всех GET-запросов будет отдаваться один и тот же каркас, который потом подгрузит нужную страницу
 	if (req.method == 'GET') {
 
-		var indexPath = './public/index.html';
-		fs.access(indexPath, fs.constants.R_OK, err => {
-			if (err) {
-				errorCode = 404;
-			} else {
-				fs.createReadStream(indexPath).pipe(res);
-			}
-		});
+		if (path[1] == '') {
 
-		if (errorCode) {
-			var stream = new Readable();
-			var html = `
-				<!DOCTYPE html>
-				<html>
-					<head>
-						<title>Simple NodeJS</title>
-					</head>
-					<body>
-						<h1>Error ` + errorCode + `</h1>
-					</body>
-				</html>
-			`;
-			res.statusCode = errorCode;
-			res.setHeader('Content-Type', 'text/html; charset=utf-8');
-			res.setHeader('Content-Length', Buffer.byteLength(html, 'utf8'));
-			var stream = new Readable();
-			stream.push(html);
-			stream.push(null); // указываем окончание вывода потока
-			stream.pipe(res);
+			var indexPath = './public/index.html';
+			fs.access(indexPath, fs.constants.R_OK, err => {
+				if (err) {
+					errorCode = 404;
+				} else {
+					fs.createReadStream(indexPath).pipe(res);
+				}
+			});
+	
+			if (errorCode) {
+				var stream = new Readable();
+				var html = `
+					<!DOCTYPE html>
+					<html>
+						<head>
+							<title>Simple NodeJS</title>
+						</head>
+						<body>
+							<h1>Error ` + errorCode + `</h1>
+						</body>
+					</html>
+				`;
+				res.statusCode = errorCode;
+				res.setHeader('Content-Type', 'text/html; charset=utf-8');
+				res.setHeader('Content-Length', Buffer.byteLength(html, 'utf8'));
+				var stream = new Readable();
+				stream.push(html);
+				stream.push(null); // указываем окончание вывода потока
+				stream.pipe(res);
+			}
+
+		} else {
+
+			fs.access(req.url, fs.constants.R_OK, err => {
+				if (err) {
+					errorCode = 404;
+				} else {
+					fs.createReadStream(req.url).pipe(res);
+				}
+			});
+	
+			if (errorCode) {
+				var stream = new Readable();
+				var html = req.url;
+				res.statusCode = errorCode;
+				res.setHeader('Content-Type', 'text/html; charset=utf-8');
+				res.setHeader('Content-Length', Buffer.byteLength(html, 'utf8'));
+				var stream = new Readable();
+				stream.push(html);
+				stream.push(null); // указываем окончание вывода потока
+				stream.pipe(res);
+			}
+
 		}
 
 	}
@@ -58,7 +85,6 @@ server.on('request', function (req, res) {
 
 		// в случае, если POST-запрос успешно принят, решаем, что делать с ним дальше
 		req.on('end', function () {
-			var path = req.url.split('/');
 
 			if (path[1] == '') {
 
