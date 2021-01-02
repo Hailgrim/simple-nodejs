@@ -1,7 +1,7 @@
 var path = require('path');
 
 module.exports = {
-	entry: './dev/script.ts',
+	entry: './dev/index.ts',
 	module: {
 		rules: [
 			{
