@@ -1,8 +1,0 @@
-1. Установить NodeJS.
-2. Создать папку проекта и перейти в неё.
-3. Запустить команду 'npm init' для создания package.json.
-4. Запустить команду 'npm install typescript --save-dev' для установки TypeScript.
-5. Запустить команду 'npx tsc --init' для создания tsconfig.json.
-6. Запустить команду 'npm install webpack webpack-cli --save-dev' для установки Webpack. Флаг '--save-dev' установит пакет только для разработки.
-7. Создать файл webpack.config.js. Соответствующе заполнить его.
-0. Установить Git.
