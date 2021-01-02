@@ -1,10 +1,11 @@
 ﻿{
 	"url": "localhost",
-	"port": "5000",
+	"port": 5000,
+	"timeout": 10000,
 	"publicFolder": "./public",
 	"db": {
 		"url": "127.0.0.1",
-		"port": "27017",
+		"port": 27017,
 		"login": "Hailgrim",
 		"password": "1000lagov"
 	},
@@ -13,6 +14,7 @@
 		"404": "Ошибка 404: Страница не найдена"
 	},
 	"MIMETypes": {
+		"html": "text/html",
 		"css": "text/css",
 		"js": "application/javascript",
 		"json": "application/json",

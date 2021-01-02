@@ -7,69 +7,31 @@ const Readable = require('stream').Readable; // конструктор для с
 const port = process.env.PORT || config.port;
 
 server.on('request', function (req, res) {
-	var errorCode = false;
 	var path = req.url.split('/');
 
-	// Для всех GET-запросов будет отдаваться один и тот же каркас, который потом подгрузит нужную страницу
 	if (req.method == 'GET') {
 
-		if (path[1] == '') {
+		var filePath = config.publicFolder + req.url;
+		if (path[1] == '') filePath = config.publicFolder + '/index.html';
 
-			var indexPath = config.publicFolder + '/index.html';
-			fs.access(indexPath, fs.constants.R_OK, err => {
-				if (err) {
-					errorCode = 404;
-				} else {
-					fs.createReadStream(indexPath).pipe(res);
-				}
-			});
-	
-			if (errorCode) {
+		fs.stat(filePath, (err, stats) => {
+			if (err) {
+				res.statusCode = 404;
 				var stream = new Readable();
-				var html = `
-					<!DOCTYPE html>
-					<html>
-						<head>
-							<title>Simple NodeJS</title>
-						</head>
-						<body>
-							<h1>Error ` + errorCode + `</h1>
-						</body>
-					</html>
-				`;
-				res.statusCode = errorCode;
-				res.setHeader('Content-Type', 'text/html; charset=utf-8');
-				res.setHeader('Content-Length', Buffer.byteLength(html, 'utf8'));
-				var stream = new Readable();
-				stream.push(html);
-				stream.push(null); // указываем окончание вывода потока
+				stream.push(null);
 				stream.pipe(res);
-			}
-
-		} else {
-
-			var filePath = config.publicFolder + req.url;
-			fs.access(filePath, fs.constants.R_OK, err => {
-				if (err) {
-					errorCode = 404;
+			} else {
+				res.statusCode = 200;
+				var fileType = config.MIMETypes[filePath.substr(filePath.lastIndexOf('.') + 1)];
+				if (fileType !== undefined) {
+					res.setHeader('Content-Type', fileType + '; charset=utf-8');
 				} else {
-					fs.createReadStream(filePath).pipe(res);
+					res.setHeader('Content-Type', 'text/plain; charset=utf-8');
 				}
-			});
-	
-			if (errorCode) {
-				var stream = new Readable();
-				var html = filePath;
-				res.statusCode = errorCode;
-				res.setHeader('Content-Type', 'text/html; charset=utf-8');
-				res.setHeader('Content-Length', Buffer.byteLength(html, 'utf8'));
-				var stream = new Readable();
-				stream.push(html);
-				stream.push(null); // указываем окончание вывода потока
-				stream.pipe(res);
+				res.setHeader('Content-Length', stats.size);
+				fs.createReadStream(filePath).pipe(res);
 			}
-
-		}
+		});
 
 	}
 
@@ -97,4 +59,5 @@ server.on('request', function (req, res) {
 
 });
 
+server.timeout = config.timeout;
 server.listen(port);
