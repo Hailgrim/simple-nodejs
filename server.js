@@ -15,7 +15,7 @@ server.on('request', function (req, res) {
 
 		if (path[1] == '') {
 
-			var indexPath = './public/index.html';
+			var indexPath = config.publicFolder + '/index.html';
 			fs.access(indexPath, fs.constants.R_OK, err => {
 				if (err) {
 					errorCode = 404;
@@ -48,7 +48,7 @@ server.on('request', function (req, res) {
 
 		} else {
 
-			var filePath = '.' + req.url;
+			var filePath = config.publicFolder + req.url;
 			fs.access(filePath, fs.constants.R_OK, err => {
 				if (err) {
 					errorCode = 404;
@@ -59,12 +59,12 @@ server.on('request', function (req, res) {
 	
 			if (errorCode) {
 				var stream = new Readable();
-				//var html = req.url;
+				var html = filePath;
 				res.statusCode = errorCode;
 				res.setHeader('Content-Type', 'text/html; charset=utf-8');
 				res.setHeader('Content-Length', Buffer.byteLength(html, 'utf8'));
 				var stream = new Readable();
-				//stream.push(html);
+				stream.push(html);
 				stream.push(null); // указываем окончание вывода потока
 				stream.pipe(res);
 			}

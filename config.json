@@ -1,6 +1,7 @@
 ﻿{
 	"url": "localhost",
 	"port": "5000",
+	"publicFolder": "./public",
 	"db": {
 		"url": "127.0.0.1",
 		"port": "27017",
