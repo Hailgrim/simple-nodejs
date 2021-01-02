@@ -48,23 +48,23 @@ server.on('request', function (req, res) {
 
 		} else {
 
-			errorCode = 404;
-			/*fs.access(req.url, fs.constants.R_OK, err => {
+			var filePath = '.' + req.url;
+			fs.access(filePath, fs.constants.R_OK, err => {
 				if (err) {
 					errorCode = 404;
 				} else {
-					fs.createReadStream(req.url).pipe(res);
+					fs.createReadStream(filePath).pipe(res);
 				}
-			});*/
+			});
 	
 			if (errorCode) {
 				var stream = new Readable();
-				var html = req.url;
+				//var html = req.url;
 				res.statusCode = errorCode;
 				res.setHeader('Content-Type', 'text/html; charset=utf-8');
 				res.setHeader('Content-Length', Buffer.byteLength(html, 'utf8'));
 				var stream = new Readable();
-				stream.push(html);
+				//stream.push(html);
 				stream.push(null); // указываем окончание вывода потока
 				stream.pipe(res);
 			}
