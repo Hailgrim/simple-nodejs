@@ -48,13 +48,14 @@ server.on('request', function (req, res) {
 
 		} else {
 
-			fs.access(req.url, fs.constants.R_OK, err => {
+			errorCode = 404;
+			/*fs.access(req.url, fs.constants.R_OK, err => {
 				if (err) {
 					errorCode = 404;
 				} else {
 					fs.createReadStream(req.url).pipe(res);
 				}
-			});
+			});*/
 	
 			if (errorCode) {
 				var stream = new Readable();
