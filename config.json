@@ -22,6 +22,7 @@
 		"gif": "image/gif",
 		"jpeg": "image/jpeg",
 		"jpg": "image/jpeg",
-		"png": "image/png"
+		"png": "image/png",
+		"ico": "image/vnd.microsoft.icon"
 	}
 }
