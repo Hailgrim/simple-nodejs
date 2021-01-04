@@ -1,11 +1,13 @@
 var path = require('path');
 
 module.exports = {
-	entry: './dev/index.ts',
+	mode: 'production',
+	target: 'web',
+	entry: './dev/index.tsx',
 	module: {
 		rules: [
 			{
-				test: /\.ts?$/,
+				test: /\.tsx?$/,
 				use: 'ts-loader',
 				exclude: /node_modules/
 			}
