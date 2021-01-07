@@ -3,6 +3,7 @@ var path = require('path');
 module.exports = {
 	mode: 'production',
 	target: 'web',
+	//watch: true,
 	entry: './dev/index.tsx',
 	module: {
 		rules: [

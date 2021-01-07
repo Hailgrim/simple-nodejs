@@ -1,18 +1,22 @@
-﻿const config = require(__dirname + '/config.json'); // подключение конфига с настройками
+﻿const config = require(__dirname + '/node-config.json'); // подключение конфига с настройками
 const http = require('http'); // модуль для создания сервера
 const server = new http.Server(); // создание объекта сервера
 const qs = require('querystring'); // модуль для парсинга тела POST/GET-запроса в виде urlencoded-строки
 const fs = require('fs'); // модуль файловой системы
 const Readable = require('stream').Readable; // конструктор для создания читаемого потока, который берётся из модуля потоков
 const port = process.env.PORT || config.port;
+const requestedFiles = ['favicon.ico', 'assets'];
 
 server.on('request', function (req, res) {
 	var path = req.url.split('/');
 
 	if (req.method == 'GET') {
 
-		var filePath = config.publicFolder + req.url;
-		if (path[1] == '') filePath = config.publicFolder + '/index.html';
+		if (requestedFiles.indexOf(path[1]) > -1) {
+			var filePath = config.publicFolder + req.url;
+		} else {
+			var filePath = config.publicFolder + '/index.html';
+		}
 
 		fs.stat(filePath, (err, stats) => {
 			if (err) {

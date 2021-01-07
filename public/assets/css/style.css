@@ -1,0 +1,38 @@
+body {
+	background-color: #424242;
+	overflow: hidden;
+}
+
+/*body::after {
+	content: 'Loading';
+	background-color: #424242;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	height: 100%;
+	z-index: 9999;
+	text-align: center;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+	font-size: 18px;
+	font-family: consolas;
+	text-transform: uppercase;
+	opacity: 0;
+	transition: ease-out opacity 0.2s, ease-out top 0.2s;
+	animation: textFlickering 1s infinite ease-out;
+}
+
+body.loading::after {
+	opacity: 1;
+	top: 0;
+}
+
+@keyframes textFlickering {
+	from {color: #fff;}
+	50% {color: #999;}
+	to {color: #fff;}
+}*/
