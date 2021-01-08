@@ -13,8 +13,8 @@ import {
 } from '@material-ui/core';
 
 import Header from './Header/Header';
-import Page1 from './Main/Page1';
-import Page2 from './Main/Page2';
+import Home from './Main/Home';
+import Users from './Main/Users';
 
 const THEME = createMuiTheme({
 	palette: {
@@ -36,10 +36,10 @@ export default function Application () {
 					<main>
 							<Switch>
 								<Route exact path="/">
-									<Page1 />
+									<Home />
 								</Route>
-								<Route path="/page-2">
-									<Page2 />
+								<Route path="/users">
+									<Users />
 								</Route>
 							</Switch>
 					</main>

@@ -31,7 +31,7 @@ export default function Menu() {
 						Menu
 					</Typography>
 					<Link to="/">Page 1</Link>
-					<Link to="/page-2">Page 2</Link>
+					<Link to="/users">Page 2</Link>
 				</Toolbar>
 			</AppBar>
 			<div className={classes.offset}></div>
