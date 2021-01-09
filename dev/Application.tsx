@@ -2,8 +2,7 @@ import React from 'react';
 import {
 	BrowserRouter,
 	Switch,
-	Route,
-	Link
+	Route
 } from 'react-router-dom';
 
 import {
@@ -12,9 +11,10 @@ import {
 	createMuiTheme
 } from '@material-ui/core';
 
-import Header from './Header/Header';
-import Home from './Main/Home';
-import Users from './Main/Users';
+import Header from './Header';
+import Home from './Content/Home';
+import Users from './Content/Users';
+import Footer from './Footer';
 
 const THEME = createMuiTheme({
 	palette: {
@@ -22,32 +22,32 @@ const THEME = createMuiTheme({
 	}
 });
 
-export default function Application () {
+export default function Application() {
+
 	React.useEffect(() => {
 		document.body.classList.remove('loading');
 	}, []);
 
 	return (
-		<>
+		<React.Fragment>
 			<BrowserRouter>
 				<MuiThemeProvider theme={THEME}>
 					<CssBaseline />
 					<Header />
 					<main>
-							<Switch>
-								<Route exact path="/">
-									<Home />
-								</Route>
-								<Route path="/users">
-									<Users />
-								</Route>
-							</Switch>
+						<Switch>
+							<Route exact path="/">
+								<Home />
+							</Route>
+							<Route path="/users">
+								<Users />
+							</Route>
+						</Switch>
 					</main>
-					<footer>
-						Footer
-					</footer>
+					<Footer />
 				</MuiThemeProvider>
 			</BrowserRouter>
-		</>
+		</React.Fragment>
 	);
+
 }
