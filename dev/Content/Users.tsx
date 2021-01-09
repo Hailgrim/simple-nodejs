@@ -45,7 +45,7 @@ export default function Users() {
 		<React.Fragment>
 			<Container className={classes.cardGrid} maxWidth="md">
 				<Typography variant="h1" color="inherit" gutterBottom>
-					Users
+					Пользователи
 				</Typography>
 				<Grid container spacing={4}>
 					{usersList.map((item: IUser, index) => {
@@ -67,10 +67,10 @@ export default function Users() {
 									</CardContent>
 									<CardActions>
 										<Button size="small">
-											View
+											Открыть
 										</Button>
 										<Button size="small">
-											Edit
+											Изменить
 										</Button>
 									</CardActions>
 								</Card>

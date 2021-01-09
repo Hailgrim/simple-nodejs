@@ -5,7 +5,8 @@ import {
 
 import {
 	AppBar,
-	Toolbar
+	Toolbar,
+	Container
 } from '@material-ui/core';
 
 import customStyles from './CustomStyles';
@@ -17,8 +18,10 @@ export default function Menu() {
 		<React.Fragment>
 			<AppBar className={classes.appBar} position="fixed">
 				<Toolbar className={classes.toolbar}>
-					<Link to="/">Home</Link>
-					<Link to="/users">Users</Link>
+					<Container maxWidth="md">
+						<Link to="/">Главная</Link>
+						<Link to="/users">Пользователи</Link>
+					</Container>
 				</Toolbar>
 			</AppBar>
 			<div className={classes.offset}></div>

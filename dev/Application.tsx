@@ -14,6 +14,7 @@ import {
 import Header from './Header';
 import Home from './Content/Home';
 import Users from './Content/Users';
+import Error404 from './Content/Error404';
 import Footer from './Footer';
 
 const THEME = createMuiTheme({
@@ -41,6 +42,9 @@ export default function Application() {
 							</Route>
 							<Route path="/users">
 								<Users />
+							</Route>
+							<Route>
+								<Error404 />
 							</Route>
 						</Switch>
 					</main>

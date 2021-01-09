@@ -7,17 +7,17 @@ import {
 
 import customStyles from './../CustomStyles';
 
-export default function Home() {
+export default function Error404() {
 	const classes = customStyles();
 
 	return (
 		<React.Fragment>
 			<Container className={classes.cardGrid} maxWidth="md">
 				<Typography variant="h1" color="inherit" gutterBottom>
-					Главная
+					Ошибка 404
 				</Typography>
 				<Typography variant="h2" color="inherit" gutterBottom>
-					Начальная страница тестовой сборки
+					Запрашиваемая страница не существует
 				</Typography>
 			</Container>
 		</React.Fragment>
