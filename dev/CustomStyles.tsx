@@ -23,13 +23,14 @@ const useStyles = makeStyles((theme) => ({
 	card: {
 		height: '100%',
 		display: 'flex',
-		flexDirection: 'column',
+		flexDirection: 'column'
 	},
 	cardMedia: {
 		paddingTop: '56.25%', // 16:9
+		paddingBottom: 'unset'
 	},
 	cardContent: {
-		flexGrow: 1,
+		flexGrow: 1
 	},
 	footer: {
 		padding: theme.spacing(3, 2),
