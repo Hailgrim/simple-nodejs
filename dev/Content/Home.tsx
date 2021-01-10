@@ -13,7 +13,7 @@ export default function Home() {
 	return (
 		<React.Fragment>
 			<Container className={classes.cardGrid} maxWidth="md">
-				<Typography variant="h1" color="inherit" gutterBottom>
+				<Typography variant="h1" className={classes.h1} color="inherit" gutterBottom>
 					Главная
 				</Typography>
 				<Typography variant="h2" color="inherit" gutterBottom>

@@ -73,7 +73,7 @@ export default function Users() {
 		return (
 			<React.Fragment>
 				<Container className={classes.cardGrid} maxWidth="md">
-					<Typography variant="h1" color="inherit" gutterBottom>
+					<Typography variant="h1" className={classes.h1} color="inherit" gutterBottom>
 						Пользователи
 					</Typography>
 					<Grid container spacing={4}>
@@ -95,10 +95,10 @@ export default function Users() {
 											</Typography>
 										</CardContent>
 										<CardActions>
-											<Button size="small">
+											<Button size="small" className={classes.cardButton}>
 												Открыть
 											</Button>
-											<Button size="small">
+											<Button size="small" className={classes.cardButton}>
 												Изменить
 											</Button>
 										</CardActions>

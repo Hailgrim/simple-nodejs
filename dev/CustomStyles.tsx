@@ -3,6 +3,9 @@ import {
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
+	h1: {
+		wordBreak: 'break-all'
+	},
 	appBar: {
 		backgroundColor: theme.palette.grey[800]
 	},
@@ -15,10 +18,9 @@ const useStyles = makeStyles((theme) => ({
 			marginRight: '15px'
 		}
 	},
-	offset: theme.mixins.toolbar,
 	cardGrid: {
-		paddingTop: theme.spacing(8),
-		paddingBottom: theme.spacing(8)
+		paddingTop: theme.spacing(4),
+		paddingBottom: theme.spacing(4)
 	},
 	card: {
 		height: '100%',
@@ -31,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 	cardContent: {
 		flexGrow: 1
+	},
+	cardButton: {
+		padding: '4px 8px'
 	},
 	footer: {
 		padding: theme.spacing(3, 2),

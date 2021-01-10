@@ -21,10 +21,11 @@ export default function Menu() {
 					<Container maxWidth="md">
 						<Link to="/">Главная</Link>
 						<Link to="/users">Пользователи</Link>
+						
 					</Container>
 				</Toolbar>
 			</AppBar>
-			<div className={classes.offset}></div>
+			<Toolbar />
 		</React.Fragment>
 	);
 }
