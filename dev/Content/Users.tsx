@@ -1,6 +1,4 @@
-import React, {
-	useState
-} from 'react';
+import React from 'react';
 
 import {
 	Container,
@@ -12,7 +10,6 @@ import {
 	CardActions,
 	Button
 } from '@material-ui/core';
-
 import customStyles from './../CustomStyles';
 
 interface IUser {
@@ -24,34 +21,19 @@ interface IUser {
 }
 
 export default function Users() {
-	const [usersList, updateUsers] = useState<IUser[]>([]);
 	const classes = customStyles();
-	const plug = [];
+	const [usersList, updateUsers] = React.useState<IUser[]>([]);
 
-	for (let i = 0; i < 6; i++) {
-		plug.push(
-			<Grid item key={i} xs={12} sm={6} md={4}>
-				<Card className={classes.card} data-id={i}>
-					<CardContent className={classes.cardMedia} />
-					<CardContent className={classes.cardContent}>
-						<Typography gutterBottom variant="h5" component="h2">
-							<br />
-						</Typography>
-						<Typography>
-							<br />
-						</Typography>
-					</CardContent>
-					<CardActions>
-						<Button size="small">
-							&nbsp;
-						</Button>
-						<Button size="small">
-							&nbsp;
-						</Button>
-					</CardActions>
-				</Card>
-			</Grid>
-		);
+	if (usersList.length == 0) {
+		for (let i = 0; i < 6; i++) {
+			usersList.push({
+				id: 0,
+				avatar: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNITEz8DwAEbQIj5vmLagAAAABJRU5ErkJggg==',
+				email: '\xa0',
+				first_name: '\xa0',
+				last_name: '\xa0'
+			});
+		}
 	}
 
 	React.useEffect(() => {
@@ -63,68 +45,47 @@ export default function Users() {
 				result?.data?.forEach((item: IUser) => {
 					tmpUsers.push(item);
 				});
-				updateUsers(usersList.concat(tmpUsers));
+				updateUsers(() => {
+					usersList.length = 0;
+					return usersList.concat(tmpUsers);
+				});
 			});
 
 	}, []);
 
-	if (usersList.length > 0) {
-
-		return (
-			<React.Fragment>
-				<Container className={classes.cardGrid} maxWidth="md">
-					<Typography variant="h1" className={classes.h1} color="inherit" gutterBottom>
-						Пользователи
-					</Typography>
-					<Grid container spacing={4}>
-						{usersList.map((item: IUser, index) => {
-							return (
-								<Grid item key={index} xs={12} sm={6} md={4}>
-									<Card className={classes.card} data-id={item.id}>
-										<CardMedia
-											className={classes.cardMedia}
-											image={item.avatar}
-											title={item.first_name + ' ' + item.last_name}
-										/>
-										<CardContent className={classes.cardContent}>
-											<Typography gutterBottom variant="h5" component="h2">
-												{item.first_name + ' ' + item.last_name}
-											</Typography>
-											<Typography>
-												{item.email}
-											</Typography>
-										</CardContent>
-										<CardActions>
-											<Button size="small" className={classes.cardButton}>
-												Открыть
-											</Button>
-											<Button size="small" className={classes.cardButton}>
-												Изменить
-											</Button>
-										</CardActions>
-									</Card>
-								</Grid>
-							);
-						})}
+	return (
+		<Container className={classes.cardGrid} maxWidth="md">
+			<Typography variant="h1" className={classes.h1} color="inherit" gutterBottom>Пользователи</Typography>
+			<Grid container spacing={4}>
+				{usersList.map((item: IUser, index) =>
+					<Grid item key={index} xs={12} sm={6} md={4}>
+						<Card className={classes.card} data-id={item.id}>
+							<CardMedia
+								className={classes.cardMedia}
+								image={item.avatar}
+								title={item.first_name + ' ' + item.last_name}
+							/>
+							<CardContent className={classes.cardContent}>
+								<Typography gutterBottom variant="h5" component="h2">{item.first_name + ' ' + item.last_name}</Typography>
+								<Typography>{item.email}</Typography>
+							</CardContent>
+							<CardActions>
+								{item.id != 0 ? (
+									<React.Fragment>
+										<Button size="small" className={classes.cardButton}>Открыть</Button>
+										<Button size="small" className={classes.cardButton}>Изменить</Button>
+									</React.Fragment>
+								) : (
+										<React.Fragment>
+											<Button size="small" className={classes.cardButton}>&nbsp;</Button>
+											<Button size="small" className={classes.cardButton}>&nbsp;</Button>
+										</React.Fragment>
+									)}
+							</CardActions>
+						</Card>
 					</Grid>
-				</Container>
-			</React.Fragment>
-		);
-
-	} else {
-
-		return (
-			<React.Fragment>
-				<Container className={classes.cardGrid} maxWidth="md">
-					<Typography variant="h1" color="inherit" gutterBottom>
-						Пользователи
-					</Typography>
-					<Grid container spacing={4}>
-						{plug}
-					</Grid>
-				</Container>
-			</React.Fragment>
-		);
-
-	}
+				)}
+			</Grid>
+		</Container>
+	);
 }

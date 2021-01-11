@@ -3,7 +3,6 @@ import React from 'react';
 import {
 	Typography
 } from '@material-ui/core';
-
 import customStyles from './CustomStyles';
 
 export default function Footer() {
