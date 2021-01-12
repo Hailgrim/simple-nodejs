@@ -20,7 +20,7 @@ interface IUser {
 	last_name: string;
 }
 
-export default function Users() {
+export default function Users(props: any) {
 	const classes = customStyles();
 	const [usersList, updateUsers] = React.useState<IUser[]>([]);
 
@@ -70,17 +70,19 @@ export default function Users() {
 								<Typography>{item.email}</Typography>
 							</CardContent>
 							<CardActions>
-								{item.id != 0 ? (
-									<React.Fragment>
-										<Button size="small" className={classes.cardButton}>Открыть</Button>
-										<Button size="small" className={classes.cardButton}>Изменить</Button>
-									</React.Fragment>
-								) : (
+								{props.auth.isAuthorize &&
+									item.id != 0 ? (
 										<React.Fragment>
-											<Button size="small" className={classes.cardButton}>&nbsp;</Button>
-											<Button size="small" className={classes.cardButton}>&nbsp;</Button>
+											<Button size="small" className={classes.cardButton}>Открыть</Button>
+											<Button size="small" className={classes.cardButton}>Изменить</Button>
 										</React.Fragment>
-									)}
+									) : (
+											<React.Fragment>
+												<Button size="small" className={classes.cardButton}>&nbsp;</Button>
+												<Button size="small" className={classes.cardButton}>&nbsp;</Button>
+											</React.Fragment>
+										)
+									}
 							</CardActions>
 						</Card>
 					</Grid>

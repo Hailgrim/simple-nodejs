@@ -61,9 +61,9 @@ const useStyles = makeStyles((theme) => ({
 			outline: 'none',
 			backgroundColor: theme.palette.background.paper,
 			boxShadow: theme.shadows[5],
-			padding: theme.spacing(2, 4, 3),
-			'& .MuiTypography-gutterBottom': {
-				margin: '15px 0px 20px 0px'
+			padding: theme.spacing(3, 4),
+			'& button': {
+				margin: theme.spacing(2) + 'px ' + theme.spacing(2) + 'px auto'
 			}
 		}
 	}

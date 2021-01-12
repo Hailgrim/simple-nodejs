@@ -26,6 +26,7 @@ const THEME = createMuiTheme({
 
 export default function Application() {
 	const classes = customStyles();
+	const [isAuthorize, setAuthStatus] = React.useState(false);
 
 	React.useEffect(() => {
 		document.body.classList.remove('loading');
@@ -35,14 +36,14 @@ export default function Application() {
 		<BrowserRouter>
 			<MuiThemeProvider theme={THEME}>
 				<CssBaseline />
-				<Header />
+				<Header auth={{isAuthorize: isAuthorize, setAuthStatus: setAuthStatus}} />
 				<main className={classes.main}>
 					<Switch>
 						<Route exact path="/">
 							<Home />
 						</Route>
 						<Route path="/users">
-							<Users />
+							<Users auth={{isAuthorize: isAuthorize, setAuthStatus: setAuthStatus}} />
 						</Route>
 						<Route>
 							<Error404 />
