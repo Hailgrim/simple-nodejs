@@ -5,59 +5,72 @@ const qs = require('querystring'); // модуль для парсинга те�
 const fs = require('fs'); // модуль файловой системы
 const Readable = require('stream').Readable; // конструктор для создания читаемого потока, который берётся из модуля потоков
 const port = process.env.PORT || config.port;
-const requestedFiles = ['favicon.ico', 'assets'];
 
 server.on('request', function (req, res) {
-	var path = req.url.split('/');
 
-	if (req.method == 'GET') {
+	let path = req.url.split('/');
+	if (path.length > 2 && path[path.length - 1] == '') {
+		path = path.slice(0, -1);
+		res.writeHead(301, { 'Location': path.join('/') });
+		res.end();
+	} else {
 
-		if (requestedFiles.indexOf(path[1]) > -1) {
-			var filePath = config.publicFolder + req.url;
-		} else {
-			var filePath = config.publicFolder + '/index.html';
+		if (req.method == 'GET') {
+
+			let filePath = config.publicFolder + req.url.split('?', 1)[0];
+			fs.stat(filePath, (err, stats) => {
+
+				if (err || stats.isDirectory()) {
+					if (err) {
+						res.statusCode = 200;
+					} else if (stats.isDirectory() && filePath != (config.publicFolder + '/')) {
+						res.statusCode = 404;
+					} else {
+						res.statusCode = 200;
+					}
+					filePath = config.publicFolder + '/index.html';
+					fs.stat(filePath, (err, stats) => {
+						res.setHeader('Content-Type', 'text/html; charset=utf-8');
+						res.setHeader('Content-Length', stats.size);
+						fs.createReadStream(filePath).pipe(res);
+					});
+				} else {
+					res.statusCode = 200;
+					let fileType = config.MIMETypes[filePath.substr(filePath.lastIndexOf('.') + 1)];
+					if (fileType !== undefined) {
+						res.setHeader('Content-Type', fileType + '; charset=utf-8');
+					} else {
+						res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+					}
+					res.setHeader('Content-Length', stats.size);
+					fs.createReadStream(filePath).pipe(res);
+				}
+
+			});
+
 		}
 
-		fs.stat(filePath, (err, stats) => {
-			if (err) {
-				res.statusCode = 404;
-				var stream = new Readable();
-				stream.push(null);
-				stream.pipe(res);
-			} else {
-				res.statusCode = 200;
-				var fileType = config.MIMETypes[filePath.substr(filePath.lastIndexOf('.') + 1)];
-				if (fileType !== undefined) {
-					res.setHeader('Content-Type', fileType + '; charset=utf-8');
-				} else {
-					res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+		if (req.method == 'POST') {
+			let post = '';
+
+			req.on('data', function (chunk) {
+				if (chunk !== null) post += chunk;
+				if (post.length > 1e4) {
+					res.statusCode = 413;
+					res.end(config.errors.unknown);
 				}
-				res.setHeader('Content-Length', stats.size);
-				fs.createReadStream(filePath).pipe(res);
-			}
-		});
+			});
 
-	}
+			// в случае, если POST-запрос успешно принят, решаем, что делать с ним дальше
+			req.on('end', function () {
 
-	if (req.method == 'POST') {
-		var post = '';
+				if (path[1] == '') {
 
-		req.on('data', function (chunk) {
-			if (chunk !== null) post += chunk;
-			if (post.length > 1e4) {
-				res.statusCode = 413;
-				res.end(config.errors.unknown);
-			}
-		});
+				}
 
-		// в случае, если POST-запрос успешно принят, решаем, что делать с ним дальше
-		req.on('end', function () {
+			});
 
-			if (path[1] == '') {
-
-			}
-
-		});
+		}
 
 	}
 
