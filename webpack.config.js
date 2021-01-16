@@ -38,7 +38,8 @@ module.exports = {
 			chunks: 'all',
 			cacheGroups: {
 				defaultVendors: {
-					filename: 'assets/js/[name].[contenthash].js'
+					//filename: 'assets/js/[name].[contenthash].js'
+					filename: 'assets/js/[name].js'
 				}
 			}
 		}
