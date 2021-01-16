@@ -47,7 +47,8 @@ module.exports = {
 		extensions: ['.tsx', '.ts', '.js']
 	},
 	output: {
-		filename: '[name].[contenthash].js',
+		//filename: '[name].[contenthash].js',
+		filename: '[name].js',
 		path: path.resolve(__dirname, 'dist')
 	},
 	plugins: [
