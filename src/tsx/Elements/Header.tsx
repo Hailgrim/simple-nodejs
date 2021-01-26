@@ -1,23 +1,15 @@
 import React from 'react';
-import {
-	Link
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logIn, logOut } from '../redux/actions';
 
-import {
-	AppBar,
-	Toolbar,
-	Container,
-	Modal,
-	Fade,
-	Backdrop,
-	Button,
-	Typography,
-	Box
-} from '@material-ui/core';
-import customStyles from './CustomStyles';
+import { AppBar, Toolbar, Container, Modal, Fade, Backdrop, Button, Typography, Box } from '@material-ui/core';
+import customStyles from '../MUIStyles';
 
 export default function Menu(props: any) {
 	const classes = customStyles();
+	const dispatch = useDispatch();
+	const isAuthorize = useSelector((state: any) => state.app.isAuthorize);
 	const [authModal, setAuthModal] = React.useState(false);
 
 	const handleAuthModalOpen = () => {
@@ -30,11 +22,11 @@ export default function Menu(props: any) {
 
 	const handleAuthLogIn = () => {
 		handleAuthModalClose();
-		props.auth.setAuthStatus(true);
+		dispatch(logIn());
 	}
 
 	const handleAuthLogOut = () => {
-		props.auth.setAuthStatus(false);
+		dispatch(logOut());
 	}
 
 	return (
@@ -43,7 +35,7 @@ export default function Menu(props: any) {
 				<Container maxWidth="md">
 					<Link to="/">Главная</Link>
 					<Link to="/users">Пользователи</Link>
-					{!props.auth.isAuthorize ? (
+					{!isAuthorize ? (
 						<Typography component="a" className="auth" onClick={handleAuthModalOpen}>Авторизоваться</Typography>
 					) : (
 							<Typography component="a" className="auth" onClick={handleAuthLogOut}>Выйти</Typography>

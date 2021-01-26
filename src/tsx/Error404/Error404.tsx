@@ -5,7 +5,7 @@ import {
 	Typography
 } from '@material-ui/core';
 
-import customStyles from './../CustomStyles';
+import customStyles from '../MUIStyles';
 
 export default function Error404() {
 	const classes = customStyles();

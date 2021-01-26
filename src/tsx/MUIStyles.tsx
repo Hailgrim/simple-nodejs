@@ -1,6 +1,4 @@
-import {
-	makeStyles
-} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
 	h1: {
@@ -65,6 +63,17 @@ const useStyles = makeStyles((theme) => ({
 			'& button': {
 				margin: theme.spacing(2) + 'px ' + theme.spacing(2) + 'px auto'
 			}
+		}
+	},
+	loader: {
+		position: 'fixed',
+		zIndex: 9999,
+		display: 'block',
+		width: '100%',
+		top: 0,
+		backgroundColor: 'transparent',
+		'& div': {
+			backgroundColor: theme.palette.grey[600]
 		}
 	}
 }));

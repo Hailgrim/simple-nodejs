@@ -1,0 +1,121 @@
+body {
+	background-color: #424242;
+	margin: 0;
+}
+
+#root {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+/*#root::after {
+	content: 'Загрузка';
+	background-color: #424242;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+	z-index: 9999;
+	text-align: center;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+	font-size: 18px;
+	font-family: consolas;
+	text-transform: uppercase;
+	opacity: 0;
+	transition: ease-out opacity 0.2s;
+	animation: textFlickering 1s infinite ease-out;
+}
+
+#root.loading::after {
+	opacity: 1;
+}
+
+@keyframes textFlickering {
+	from {color: #fff;}
+	50% {color: #999;}
+	to {color: #fff;}
+}*/
+
+#cube-loader {
+	z-index: 9999;
+	background-color: #424242;
+	align-items: center;
+	display: none;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	& .caption {
+		margin: 0 auto;
+	}
+	.cube-loader {
+		width: 73px;
+		height: 73px;
+		margin: 0 auto;
+		margin-top: 49px;
+		position: relative;
+		transform: rotateZ(45deg);
+
+		& .cube {
+			position: relative;
+			transform: rotateZ(45deg);
+			width: 50%;
+			height: 50%;
+			float: left;
+			transform: scale(1);
+		}
+		& .cube:before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(255, 255, 255, 0.7);
+			animation: cube-loader 2.76s infinite linear both;
+			transform-origin: 100% 100%;
+		}
+		& .loader-2 {
+			transform: scale(1) rotateZ(90deg);
+		}
+		& .loader-3 {
+			transform: scale(1) rotateZ(180deg);
+		}
+		& .loader-4 {
+			transform: scale(1) rotateZ(270deg);
+		}
+		& .loader-2:before {
+			animation-delay: 0.35s;
+		}
+		& .loader-3:before {
+			animation-delay: 0.69s;
+		}
+		& .loader-4:before {
+			animation-delay: 1.04s;
+		}
+	}
+}
+
+#cube-loader.loading {
+	display: flex;
+}
+
+@keyframes cube-loader {
+	0%, 10% {
+		transform: perspective(136px) rotateX(-180deg);
+		opacity: 0;
+	}
+	25%, 75% {
+		transform: perspective(136px) rotateX(0deg);
+		opacity: 1;
+	}
+	90%, 100% {
+		transform: perspective(136px) rotateY(180deg);
+		opacity: 0;
+	}
+}

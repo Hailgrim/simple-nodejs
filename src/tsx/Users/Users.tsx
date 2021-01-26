@@ -1,64 +1,33 @@
+import { IUser } from './../typescript';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUsers, hideLoader } from '../redux/actions';
 
-import {
-	Container,
-	Typography,
-	Grid,
-	Card,
-	CardMedia,
-	CardContent,
-	CardActions,
-	Button
-} from '@material-ui/core';
-import customStyles from './../CustomStyles';
+import { Container, Typography, Grid, Card, CardMedia, CardContent, CardActions, Button } from '@material-ui/core';
+import customStyles from '../MUIStyles';
 
-interface IUser {
-	id: number;
-	avatar: string;
-	email: string;
-	first_name: string;
-	last_name: string;
-}
+import NewUser from './NewUser';
 
-export default function Users(props: any) {
+export default function Users() {
 	const classes = customStyles();
-	const [usersList, updateUsers] = React.useState<IUser[]>([]);
-
-	if (usersList.length == 0) {
-		for (let i = 0; i < 6; i++) {
-			usersList.push({
-				id: 0,
-				avatar: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNITEz8DwAEbQIj5vmLagAAAABJRU5ErkJggg==',
-				email: '\xa0',
-				first_name: '\xa0',
-				last_name: '\xa0'
-			});
-		}
-	}
+	const dispatch = useDispatch();
+	const isAuthorize = useSelector((state: any) => state.app.isAuthorize);
+	const users = useSelector((state: any) => state.users.list);
 
 	React.useEffect(() => {
+		dispatch(getUsers());
 
-		fetch('https://reqres.in/api/users')
-			.then(response => response.json())
-			.then(result => {
-				let tmpUsers: IUser[] = [];
-				result?.data?.forEach((item: IUser) => {
-					tmpUsers.push(item);
-				});
-				updateUsers(() => {
-					usersList.length = 0;
-					return usersList.concat(tmpUsers);
-				});
-			});
-
+		return () => {
+			dispatch(hideLoader());
+		}
 	}, []);
 
 	return (
 		<Container className={classes.cardGrid} maxWidth="md">
 			<Typography variant="h1" className={classes.h1} color="inherit" gutterBottom>Пользователи</Typography>
 			<Grid container spacing={4}>
-				{usersList.map((item: IUser, index) =>
-					<Grid item key={index} xs={12} sm={6} md={4}>
+				{users.map((item: IUser) =>
+					<Grid item key={item.id} xs={12} sm={6} md={4}>
 						<Card className={classes.card} data-id={item.id}>
 							<CardMedia
 								className={classes.cardMedia}
@@ -70,7 +39,7 @@ export default function Users(props: any) {
 								<Typography>{item.email}</Typography>
 							</CardContent>
 							<CardActions>
-								{props.auth.isAuthorize &&
+								{isAuthorize &&
 									item.id != 0 ? (
 										<React.Fragment>
 											<Button size="small" className={classes.cardButton}>Открыть</Button>
@@ -87,6 +56,9 @@ export default function Users(props: any) {
 						</Card>
 					</Grid>
 				)}
+				<Grid item xs={12}>
+					<NewUser />
+				</Grid>
 			</Grid>
 		</Container>
 	);

@@ -1,22 +1,16 @@
 import React from 'react';
-import {
-	BrowserRouter,
-	Switch,
-	Route
-} from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Header from './Header';
-import Home from './Content/Home';
-import Users from './Content/Users';
-import Error404 from './Content/Error404';
-import Footer from './Footer';
+import Header from './Elements/Header';
+import Home from './Home/Home';
+import Users from './Users/Users';
+import Error404 from './Error404/Error404';
+import Footer from './Elements/Footer';
 
-import {
-	CssBaseline,
-	MuiThemeProvider,
-	createMuiTheme
-} from '@material-ui/core';
-import customStyles from './CustomStyles';
+import { CssBaseline, MuiThemeProvider, createMuiTheme, LinearProgress, Fade } from '@material-ui/core';
+import customStyles from './MUIStyles';
+import { loaderProgress } from './redux/actions';
 
 const THEME = createMuiTheme({
 	palette: {
@@ -26,24 +20,30 @@ const THEME = createMuiTheme({
 
 export default function Application() {
 	const classes = customStyles();
-	const [isAuthorize, setAuthStatus] = React.useState(false);
+	const dispatch = useDispatch();
+	const loading = useSelector((state: any) => state.app.loading);
+	const loadingProgress = useSelector((state: any) => state.app.loadingProgress);
 
 	React.useEffect(() => {
-		document.body.classList.remove('loading');
+		document.getElementById('cube-loader')?.classList.remove('loading');
 	}, []);
 
 	return (
 		<BrowserRouter>
 			<MuiThemeProvider theme={THEME}>
 				<CssBaseline />
-				<Header auth={{isAuthorize: isAuthorize, setAuthStatus: setAuthStatus}} />
+				<Fade in={loading} onExited={() => {dispatch(loaderProgress(0))}}>
+					<LinearProgress variant="determinate" value={loadingProgress} className={classes.loader} />
+				</Fade>
+				<Header />
 				<main className={classes.main}>
 					<Switch>
 						<Route exact path="/">
 							<Home />
 						</Route>
 						<Route path="/users">
-							<Users auth={{isAuthorize: isAuthorize, setAuthStatus: setAuthStatus}} />
+							{/*<Users auth={{isAuthorize: isAuthorize, setAuthStatus: setAuthStatus}} />*/}
+							<Users />
 						</Route>
 						<Route>
 							<Error404 />

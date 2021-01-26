@@ -4,7 +4,7 @@ import {
 	Container,
 	Typography
 } from '@material-ui/core';
-import customStyles from './../CustomStyles';
+import customStyles from '../MUIStyles';
 
 export default function Home() {
 	const classes = customStyles();

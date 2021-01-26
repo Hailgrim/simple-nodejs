@@ -3,7 +3,7 @@ import React from 'react';
 import {
 	Typography
 } from '@material-ui/core';
-import customStyles from './CustomStyles';
+import customStyles from '../MUIStyles';
 
 export default function Footer() {
 	const classes = customStyles();
