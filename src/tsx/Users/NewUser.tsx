@@ -1,13 +1,13 @@
-import { IUser } from './../typescript';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Typography, Button, FormControl, InputLabel, Input, Backdrop, Box, Fade, Modal } from '@material-ui/core';
+
 import { createUser, showAlert } from '../redux/actions';
 import Alert from '../Elements/Alert';
-
-import { Typography, Button, FormControl, InputLabel, Input, Backdrop, Box, Fade, Modal } from '@material-ui/core';
 import customStyles from '../MUIStyles';
+import { IUser } from '../types';
 
-export default function NewUser(props: any) {
+export default function NewUser() {
 	const classes = customStyles();
 	const dispatch = useDispatch();
 	const alert = useSelector((state: any) => state.app.alert);
@@ -40,7 +40,7 @@ export default function NewUser(props: any) {
 
 	return (
 		<React.Fragment>
-			<Button variant="contained" onClick={handleNewUserModalOpen} type="submit">Добавить нового пользователя</Button>
+			<Button variant="outlined" onClick={handleNewUserModalOpen} type="submit">Добавить нового пользователя</Button>
 			<Modal
 				open={newUserModal}
 				onClose={handleNewUserModalClose}

@@ -1,16 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { CssBaseline, MuiThemeProvider, createMuiTheme, LinearProgress, Fade } from '@material-ui/core';
 
+import { loaderProgress } from './redux/actions';
+import customStyles from './MUIStyles';
 import Header from './Elements/Header';
 import Home from './Home/Home';
 import Users from './Users/Users';
 import Error404 from './Error404/Error404';
 import Footer from './Elements/Footer';
-
-import { CssBaseline, MuiThemeProvider, createMuiTheme, LinearProgress, Fade } from '@material-ui/core';
-import customStyles from './MUIStyles';
-import { loaderProgress } from './redux/actions';
 
 const THEME = createMuiTheme({
 	palette: {
@@ -32,7 +31,7 @@ export default function Application() {
 		<BrowserRouter>
 			<MuiThemeProvider theme={THEME}>
 				<CssBaseline />
-				<Fade in={loading} onExited={() => {dispatch(loaderProgress(0))}}>
+				<Fade in={loading} onExited={() => { dispatch(loaderProgress(0)) }}>
 					<LinearProgress variant="determinate" value={loadingProgress} className={classes.loader} />
 				</Fade>
 				<Header />
@@ -42,7 +41,6 @@ export default function Application() {
 							<Home />
 						</Route>
 						<Route path="/users">
-							{/*<Users auth={{isAuthorize: isAuthorize, setAuthStatus: setAuthStatus}} />*/}
 							<Users />
 						</Route>
 						<Route>

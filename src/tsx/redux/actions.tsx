@@ -1,5 +1,8 @@
-import { IUser } from "../typescript";
-import { SHOW_ALERT, HIDE_ALERT, HIDE_LOADER, SHOW_LOADER, CREATE_USER, GET_USERS, REQUEST_USERS, LOADER_PROGRESS, LOGIN, LOGOUT } from "./actionTypes";
+import { IUser } from "../types";
+import {
+	LOGIN, LOGOUT, HIDE_LOADER, SHOW_LOADER, LOADER_PROGRESS, SHOW_ALERT, HIDE_ALERT,
+	CREATE_USER, GET_USERS, REQUEST_USERS
+} from "./actionTypes";
 
 export function showLoader() {
 	return {
@@ -52,7 +55,7 @@ export function createUser(user: IUser) {
 	};
 }
 
-export function getUsers() {
+export function getUsers(params: any) {
 	/*return async (dispatch: any) => {
 		dispatch(showLoader());
 		const response = await fetch('https://reqres.in/api/users');
@@ -64,6 +67,7 @@ export function getUsers() {
 		dispatch(hideLoader());
 	}*/
 	return {
-		type: REQUEST_USERS
+		type: REQUEST_USERS,
+		payload: params
 	};
 }

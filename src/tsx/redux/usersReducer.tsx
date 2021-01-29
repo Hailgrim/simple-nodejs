@@ -1,8 +1,10 @@
 import { GET_USERS, CREATE_USER } from './actionTypes';
-import { IUser } from './../typescript';
+import { IUser } from '../types';
 
 const initialState = {
-	list: new Array<IUser>()
+	list: new Array<IUser>(),
+	page: 1,
+	total_pages: 1
 };
 
 if (initialState.list.length == 0) {
@@ -20,9 +22,17 @@ if (initialState.list.length == 0) {
 export const usersReducer = (state: any = initialState, action: any) => {
 	switch (action.type) {
 		case CREATE_USER:
-			return { ...state, list: state.list.concat(action.payload) };
+			return {
+				...state,
+				list: state.list.concat(action.payload)
+			};
 		case GET_USERS:
-			return { ...state, list: state.list.splice(0, 0).concat(action.payload) };
+			return {
+				...state,
+				list: action.payload.data,
+				page: action.payload.page,
+				total_pages: action.payload.total_pages
+			};
 		default: return state;
 	}
 }
