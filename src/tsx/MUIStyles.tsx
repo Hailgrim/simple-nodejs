@@ -35,9 +35,26 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: 'column'
 	},
 	cardMedia: {
+		position: 'relative',
 		paddingTop: '56.25%', // 16:9
 		paddingBottom: 'unset',
-		backgroundColor: theme.palette.grey[700]
+		backgroundColor: theme.palette.grey[700],
+		backgroundSize: 'cover',
+		backgroundPosition: 'center',
+		'&::after': {
+			content: '""',
+			position: 'absolute',
+			top: 0,
+			left: 0,
+			height: '100%',
+			width: '100%',
+			backgroundColor: theme.palette.grey[700],
+			opacity: 0,
+			transition: 'ease-out opacity 0.2s'
+		},
+		'&.loading::after': {
+			opacity: 1
+		}
 	},
 	cardContent: {
 		flexGrow: 1

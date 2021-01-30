@@ -18,9 +18,14 @@ export default function Users() {
 
 	React.useEffect(() => {
 		dispatch(getUsers(location.search));
+		let handlePopstateTrigger = (event: any) => {
+			dispatch(getUsers(location.search));
+		}
+		window.addEventListener('popstate', handlePopstateTrigger);
 
 		return () => {
 			dispatch(hideLoader());
+			window.removeEventListener('popstate', handlePopstateTrigger);
 		}
 	}, []);
 

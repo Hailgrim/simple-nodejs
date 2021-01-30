@@ -8,10 +8,10 @@ const initialState = {
 };
 
 if (initialState.list.length == 0) {
-	for (let i = 0; i < 6; i++) {
+	for (let i = 1; i < 7; i++) {
 		initialState.list.push({
-			id: i,
-			avatar: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNITEz8DwAEbQIj5vmLagAAAABJRU5ErkJggg==',
+			id: (i - 7),
+			avatar: ''/*'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNITEz8DwAEbQIj5vmLagAAAABJRU5ErkJggg=='*/,
 			email: '\xa0',
 			first_name: '\xa0',
 			last_name: '\xa0'
