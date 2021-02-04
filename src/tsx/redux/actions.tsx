@@ -1,7 +1,7 @@
-import { IUser } from "../types";
+import { IPost } from "../types";
 import {
 	LOGIN, LOGOUT, HIDE_LOADER, SHOW_LOADER, LOADER_PROGRESS, SHOW_ALERT, HIDE_ALERT,
-	CREATE_USER, GET_USERS, REQUEST_USERS
+	CREATE_POST, GET_POSTS, REQUEST_POSTS
 } from "./actionTypes";
 
 export function showLoader() {
@@ -48,26 +48,23 @@ export function hideAlert() {
 	};
 }
 
-export function createUser(user: IUser) {
+export function createUser(user: IPost) {
 	return {
-		type: CREATE_USER,
+		type: CREATE_POST,
 		payload: user
 	};
 }
 
-export function getUsers(params: any) {
-	/*return async (dispatch: any) => {
-		dispatch(showLoader());
-		const response = await fetch('https://reqres.in/api/users');
-		const json = await response.json();
-		dispatch({
-			type: GET_USERS,
-			payload: json.data
-		});
-		dispatch(hideLoader());
-	}*/
+export function getPosts(params: any) {
 	return {
-		type: REQUEST_USERS,
+		type: REQUEST_POSTS,
+		payload: params
+	};
+}
+
+export function getUser(params: any) {
+	return {
+		type: REQUEST_POSTS,
 		payload: params
 	};
 }

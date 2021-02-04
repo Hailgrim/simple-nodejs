@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Button, FormControl, InputLabel, Input, Backdrop, Box, Fade, Modal } from '@material-ui/core';
 
 import { createUser, showAlert } from '../redux/actions';
-import Alert from '../Elements/Alert';
-import customStyles from '../MUIStyles';
-import { IUser } from '../types';
+import Alert from '../Parts/Alert';
+import customStyles from '../MuiStyles';
+import { IPost } from '../types';
 
-export default function NewUser() {
+export default function NewPost() {
 	const classes = customStyles();
 	const dispatch = useDispatch();
 	const alert = useSelector((state: any) => state.app.alert);
@@ -19,12 +19,13 @@ export default function NewUser() {
 			dispatch(showAlert('Запрещённый ящик!'));
 			return;
 		}
-		let newUser: IUser = {
-			id: new Date().getTime(),
-			avatar: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNITEz8DwAEbQIj5vmLagAAAABJRU5ErkJggg==',
-			email: event.target.elements.email.value ? event.target.elements.email.value : '\xa0',
-			first_name: event.target.elements.first_name.value ? event.target.elements.first_name.value : '\xa0',
-			last_name: event.target.elements.last_name.value ? event.target.elements.last_name.value : '\xa0'
+		let date = new Date();
+		let newUser: IPost = {
+			id: date.getTime(),
+			timestamp: date.getTime(),
+			image: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNITEz8DwAEbQIj5vmLagAAAABJRU5ErkJggg==',
+			title: event.target.elements.first_name.value ? event.target.elements.first_name.value : '\xa0',
+			text: event.target.elements.last_name.value ? event.target.elements.last_name.value : '\xa0'
 		};
 		dispatch(createUser(newUser));
 		handleNewUserModalClose();

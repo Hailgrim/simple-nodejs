@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CssBaseline, MuiThemeProvider, createMuiTheme, LinearProgress, Fade } from '@material-ui/core';
 
 import { loaderProgress } from './redux/actions';
-import customStyles from './MUIStyles';
-import Header from './Elements/Header';
+import customStyles from './MuiStyles';
+import Header from './Parts/Header';
 import Home from './Home/Home';
-import Users from './Users/Users';
+import Posts from './Posts/Posts';
+import Post from './Posts/Post';
 import Error404 from './Error404/Error404';
-import Footer from './Elements/Footer';
+import Footer from './Parts/Footer';
 
 const THEME = createMuiTheme({
 	palette: {
@@ -17,7 +18,7 @@ const THEME = createMuiTheme({
 	}
 });
 
-export default function Application() {
+const Application: React.FunctionComponent = () => {
 	const classes = customStyles();
 	const dispatch = useDispatch();
 	const loading = useSelector((state: any) => state.app.loading);
@@ -40,8 +41,11 @@ export default function Application() {
 						<Route exact path="/">
 							<Home />
 						</Route>
-						<Route path="/users">
-							<Users />
+						<Route path="/posts">
+							<Posts />
+						</Route>
+						<Route path="/posts/:post">
+							<Post />
 						</Route>
 						<Route>
 							<Error404 />
@@ -53,3 +57,4 @@ export default function Application() {
 		</BrowserRouter>
 	);
 }
+export default Application;

@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+const customStyles = makeStyles((theme) => ({
 	h1: {
 		wordBreak: 'break-all'
 	},
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 		paddingTop: theme.spacing(4),
 		paddingBottom: theme.spacing(4)
 	},
-	card: {
+	cardList: {
 		height: '100%',
 		display: 'flex',
 		flexDirection: 'column'
@@ -95,4 +95,4 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default useStyles;
+export default customStyles;

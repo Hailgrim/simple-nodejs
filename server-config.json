@@ -1,4 +1,4 @@
-﻿{
+{
 	"url": "localhost",
 	"port": 5000,
 	"timeout": 10000,
@@ -23,6 +23,7 @@
 		"jpeg": "image/jpeg",
 		"jpg": "image/jpeg",
 		"png": "image/png",
-		"ico": "image/vnd.microsoft.icon"
+		"ico": "image/vnd.microsoft.icon",
+		"form": "application/x-www-form-urlencoded"
 	}
 }

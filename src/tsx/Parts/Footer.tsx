@@ -1,11 +1,9 @@
 import React from 'react';
+import { Typography } from '@material-ui/core';
 
-import {
-	Typography
-} from '@material-ui/core';
-import customStyles from '../MUIStyles';
+import customStyles from '../MuiStyles';
 
-export default function Footer() {
+const Footer: React.FunctionComponent = () => {
 	const classes = customStyles();
 
 	return (
@@ -22,3 +20,4 @@ export default function Footer() {
 		</footer>
 	);
 }
+export default Footer;

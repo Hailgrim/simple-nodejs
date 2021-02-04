@@ -5,21 +5,20 @@ import {
 	Typography
 } from '@material-ui/core';
 
-import customStyles from '../MUIStyles';
+import customStyles from '../MuiStyles';
 
-export default function Error404() {
+const Error404: React.FunctionComponent = () => {
 	const classes = customStyles();
 
 	return (
-		<React.Fragment>
-			<Container className={classes.cardGrid} maxWidth="md">
-				<Typography variant="h1" color="inherit" gutterBottom>
-					Ошибка 404
-				</Typography>
-				<Typography variant="h2" color="inherit" gutterBottom>
-					Запрашиваемая страница не существует
-				</Typography>
-			</Container>
-		</React.Fragment>
+		<Container className={classes.cardGrid} maxWidth="md">
+			<Typography variant="h3" component="h1" color="inherit" gutterBottom>
+				Ошибка 404
+			</Typography>
+			<Typography variant="h4" color="inherit" gutterBottom>
+				Запрашиваемая страница не существует
+			</Typography>
+		</Container>
 	);
 }
+export default Error404;

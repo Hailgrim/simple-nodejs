@@ -1,7 +1,7 @@
-export interface IUser {
+export interface IPost {
 	id: number;
-	avatar: string;
-	email: string;
-	first_name: string;
-	last_name: string;
+	timestamp: number,
+	title: string;
+	text: string;
+	image: string;
 }

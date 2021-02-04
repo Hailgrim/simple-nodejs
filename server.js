@@ -1,4 +1,4 @@
-﻿const config = require(__dirname + '/node-config.json'); // подключение конфига с настройками
+const config = require(__dirname + '/server-config.json'); // подключение конфига с настройками
 const http = require('http'); // модуль для создания сервера
 const server = new http.Server(); // создание объекта сервера
 const qs = require('querystring'); // модуль для парсинга тела POST/GET-запроса в виде urlencoded-строки
@@ -18,6 +18,9 @@ server.on('request', function (req, res) {
 		if (req.method == 'GET') {
 
 			let filePath = config.publicFolder + req.url.split('?', 1)[0];
+			if (path[1] == 'files') {
+				filePath = '.' + req.url.split('?', 1)[0];
+			}
 			fs.stat(filePath, (err, stats) => {
 
 				if (err || stats.isDirectory()) {
@@ -64,7 +67,27 @@ server.on('request', function (req, res) {
 			// в случае, если POST-запрос успешно принят, решаем, что делать с ним дальше
 			req.on('end', function () {
 
-				if (path[1] == '') {
+				if (req.headers['content-type'] == config.MIMETypes.form && post !== '') {
+					post = qs.parse(post);
+				} else {
+					post = {};
+				}
+
+				if (path[1] == 'posts') {
+
+					fs.readFile('./fake-db.txt', function (error, data) {
+						if (!error) {
+							var obj = JSON.parse(data);
+							if (!post.page) post.page = 1;
+							obj.posts.list = obj.posts.list.slice(6 * (post.page - 1), 6 * post.page);
+							obj.posts.page = post.page;
+							res.statusCode = 200;
+							res.setHeader('Content-Type', config.MIMETypes.json + '; charset=utf-8');
+							res.end(JSON.stringify(obj.posts));
+						} else {
+							console.log(error);
+						}
+					});
 
 				}
 

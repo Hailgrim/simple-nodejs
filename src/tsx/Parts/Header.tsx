@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logIn, logOut } from '../redux/actions';
-
 import { AppBar, Toolbar, Container, Modal, Fade, Backdrop, Button, Typography, Box } from '@material-ui/core';
-import customStyles from '../MUIStyles';
 
-export default function Menu(props: any) {
+import { logIn, logOut } from '../redux/actions';
+import customStyles from '../MuiStyles';
+
+const Menu: React.FunctionComponent = () => {
 	const classes = customStyles();
 	const dispatch = useDispatch();
 	const isAuthorize = useSelector((state: any) => state.app.isAuthorize);
@@ -34,7 +34,7 @@ export default function Menu(props: any) {
 			<Toolbar className={classes.toolbar}>
 				<Container maxWidth="md">
 					<Link to="/">Главная</Link>
-					<Link to="/users">Пользователи</Link>
+					<Link to="/posts">Статьи</Link>
 					{!isAuthorize ? (
 						<Typography component="a" className="auth" onClick={handleAuthModalOpen}>Авторизоваться</Typography>
 					) : (
@@ -65,3 +65,4 @@ export default function Menu(props: any) {
 		</AppBar>
 	);
 }
+export default Menu;

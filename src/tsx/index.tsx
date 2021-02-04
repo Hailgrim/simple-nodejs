@@ -6,13 +6,12 @@ import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 
 import './../scss/style.scss';
-import { forbiddenWordsMiddleware } from './redux/middleware';
+//import { forbiddenWordsMiddleware } from './redux/middleware';
 import { sagaWatcher } from './redux/sagas';
 import { rootReducer } from './redux/rootReducer';
 import Application from './Application';
 
 const saga = createSagaMiddleware();
-
 const store = createStore(rootReducer, compose(
 	applyMiddleware(
 		thunk,
@@ -20,13 +19,12 @@ const store = createStore(rootReducer, compose(
 		saga
 	)
 ));
-
 saga.run(sagaWatcher);
 
 const app = (
 	<Provider store={store}>
 		<Application />
 	</Provider>
-)
+);
 
 render(app, document.getElementById('root'));
