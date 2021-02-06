@@ -73,17 +73,41 @@ server.on('request', function (req, res) {
 					post = {};
 				}
 
-				if (path[1] == 'posts') {
+				if (path[1] == 'posts' && !path[2]) {
 
 					fs.readFile('./fake-db.txt', function (error, data) {
 						if (!error) {
-							var obj = JSON.parse(data);
+							let obj = JSON.parse(data);
 							if (!post.page) post.page = 1;
 							obj.posts.list = obj.posts.list.slice(6 * (post.page - 1), 6 * post.page);
-							obj.posts.page = post.page;
+							obj.posts.page = parseInt(post.page);
 							res.statusCode = 200;
 							res.setHeader('Content-Type', config.MIMETypes.json + '; charset=utf-8');
 							res.end(JSON.stringify(obj.posts));
+						} else {
+							console.log(error);
+						}
+					});
+
+				} else if (path[1] == 'posts' && path[2]) {
+
+					fs.readFile('./fake-db.txt', function (error, data) {
+						if (!error) {
+							let obj = JSON.parse(data);
+							let find = false;
+							obj.posts.list.forEach((item) => {
+								if (item.id == parseInt(path[2])) {
+									find = item;
+								}
+							});
+							if (find) {
+								res.statusCode = 200;
+								res.setHeader('Content-Type', config.MIMETypes.json + '; charset=utf-8');
+								res.end(JSON.stringify(find));
+							} else {
+								res.statusCode = 404;
+								res.end(null);
+							}
 						} else {
 							console.log(error);
 						}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Typography, Grid } from '@material-ui/core';
+import { useLocation } from 'react-router-dom';
 
 import { getPosts, hideLoader } from '../redux/actions';
 import customStyles from '../MuiStyles';
@@ -8,25 +9,17 @@ import { IPost } from '../types';
 import PostsListItem from './PostsListItem';
 import PostsPagination from './PostsPagination';
 
-export default function Posts() {
+const Posts: React.FunctionComponent = () => {
 	const classes = customStyles();
 	const dispatch = useDispatch();
 	const list = useSelector((state: any) => state.posts.list);
 	const page = useSelector((state: any) => state.posts.page);
 	const total_pages = useSelector((state: any) => state.posts.total_pages);
+	const query = useLocation().search;
 
 	React.useEffect(() => {
-		dispatch(getPosts(location.search));
-		let handlePopstateTrigger = (event: any) => {
-			dispatch(getPosts(location.search));
-		}
-		window.addEventListener('popstate', handlePopstateTrigger);
-
-		return () => {
-			dispatch(hideLoader());
-			window.removeEventListener('popstate', handlePopstateTrigger);
-		}
-	}, []);
+		dispatch(getPosts(query));
+	}, [query]);
 
 	return (
 		<Container className={classes.cardGrid} maxWidth="md">
@@ -44,3 +37,4 @@ export default function Posts() {
 		</Container>
 	);
 }
+export default Posts;

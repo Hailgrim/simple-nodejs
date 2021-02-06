@@ -1,18 +1,21 @@
 import React from 'react';
 import { Box, Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 import { getPosts } from '../redux/actions';
 import { swapGetParam } from '../functions';
+import customStyles from '../MuiStyles';
 
-interface PostsPaginationProps {
+type PostsPaginationProps = {
 	page: number,
 	total_pages: number
 }
 
 const PostsPagination: React.FunctionComponent<PostsPaginationProps> = props => {
 	const dispatch = useDispatch();
+	const { path } = useRouteMatch();
+	const classes = customStyles();
 
 	const handlePageChange = (event: React.SyntheticEvent<HTMLDivElement>) => {
 		dispatch(getPosts(swapGetParam(location.search, 'page', event.currentTarget.dataset.page!.toString())));
@@ -21,7 +24,7 @@ const PostsPagination: React.FunctionComponent<PostsPaginationProps> = props => 
 	return (
 		<Box textAlign="center">
 			{[...new Array(props.total_pages)].map((_, key) =>
-				<Link to={'/posts' + swapGetParam(location.search, 'page', (key + 1).toString())} key={key}>
+				<Link className={classes.cardLink} to={{ pathname: path, search: swapGetParam(location.search, 'page', (key + 1).toString()) }} key={key}>
 					{props.page == (key + 1) ? (
 						<Button component="div" size="small" variant="outlined" disabled>{key + 1}</Button>
 					) : (

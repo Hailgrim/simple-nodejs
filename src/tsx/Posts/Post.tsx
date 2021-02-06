@@ -1,52 +1,72 @@
 import React from 'react';
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core';
+import { Card, CardContent, CardMedia, Container, Grid, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import customStyles from '../MuiStyles';
-import { getUser } from '../redux/actions';
+import { clearPost, getPost } from '../redux/actions';
+import { IPost } from '../types';
 
-const Post: React.FunctionComponent = (props: any) => {
+type PostParams = {
+	id: string
+}
+
+const Post: React.FunctionComponent = () => {
 	const classes = customStyles();
 	const dispatch = useDispatch();
-	const isAuthorize = useSelector((state: any) => state.app.isAuthorize);
 	const [src, srcLoad] = React.useState('');
-	const user = useSelector((state: any) => state.users.user);
+	const post: IPost = useSelector((state: any) => state.posts.post);
+	const { id } = useParams() as PostParams;
+
+	const createMarkup = (html: string) => {
+		return {_html: html};
+	}
+
+	const date = React.useMemo(() => {
+		let date = new Date(post.timestamp);
+		let normolize = date.getHours() + ':' + date.getMinutes() + ' ' + date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+		return normolize;
+	}, [post.timestamp]);
 
 	React.useEffect(() => {
-		let loadTrigger = (event: any) => srcLoad(event.target.src);
-		let img = document.createElement('img');
-		img.src = props.user.avatar;
-		img.addEventListener('load', loadTrigger);
-
-		dispatch(getUser(location.search));
+		window.scrollTo(0, 0);
+		dispatch(getPost(id));
 
 		return () => {
-			img.removeEventListener('load', loadTrigger);
-		}
+			dispatch(clearPost());
+		};
 	}, []);
 
+	React.useEffect(() => {
+		if (post.image != '') {
+			let loadTrigger = (event: any) => srcLoad(event.target.src);
+			let img = document.createElement('img');
+			img.src = post.image;
+			img.addEventListener('load', loadTrigger, {once: true});
+		}
+	}, [post.image]);
+
 	return (
-		<Card data-id={props.user.id}>
-			<CardMedia
-				className={src != '' ? classes.cardMedia : (classes.cardMedia + ' loading')}
-				image={src != '' ? src : '#'}
-				title={props.user.first_name + ' ' + props.user.last_name}
-			/>
-			<CardContent className={classes.cardContent}>
-				<Typography gutterBottom variant="h4">{props.user.first_name + ' ' + props.user.last_name}</Typography>
-				<Typography gutterBottom variant="h5">{props.user.email}</Typography>
-				<Typography gutterBottom variant="body1">{props.user.email}</Typography>
-			</CardContent>
-			<CardActions>
-				{isAuthorize &&
-					props.user.id != 0 ? (
-						<Button size="small" className={classes.cardButton}>Изменить</Button>
-					) : (
-						<Button size="small" className={classes.cardButton}>&nbsp;</Button>
-					)
-				}
-			</CardActions>
-		</Card>
+
+		<Container className={classes.cardGrid} maxWidth="md">
+			<Typography variant="h3" component="h1" className={classes.h1} color="inherit" gutterBottom>{post.title}</Typography>
+			<Grid container spacing={4}>
+				<Grid item xs={12}>
+					<Card data-id={post.id}>
+						<CardMedia
+							className={`${classes.cardMedia} ${classes.cardMediaSolo} ${(src != '') ? '' : 'loading'}`}
+							image={src != '' ? src : '#'}
+							title={post.title}
+						/>
+						<CardContent className={classes.cardContent}>
+							<Typography gutterBottom variant="body2">{(post.timestamp > 0) ? date : '\xa0'}</Typography>
+							<Typography variant="body1">{post.text}</Typography>
+						</CardContent>
+					</Card>
+				</Grid>
+			</Grid>
+		</Container>
+
 	);
 }
 export default Post;

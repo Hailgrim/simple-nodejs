@@ -1,4 +1,4 @@
-import { GET_POSTS, CREATE_POST } from './actionTypes';
+import { GET_POSTS, GET_POST, CLEAR_POST } from './actionTypes';
 import { IPost } from '../types';
 
 const initialState = {
@@ -28,17 +28,22 @@ if (initialState.list.length == 0) {
 
 export const postsReducer = (state: any = initialState, action: any) => {
 	switch (action.type) {
-		case CREATE_POST:
-			return {
-				...state,
-				list: state.list.concat(action.payload)
-			};
 		case GET_POSTS:
 			return {
 				...state,
 				list: action.payload.list,
 				page: action.payload.page,
 				total_pages: action.payload.total_pages
+			};
+		case GET_POST:
+			return {
+				...state,
+				post: action.payload
+			};
+		case CLEAR_POST:
+			return {
+				...state,
+				post: initialState.post
 			};
 		default: return state;
 	}

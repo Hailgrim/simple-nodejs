@@ -7,8 +7,7 @@ import { loaderProgress } from './redux/actions';
 import customStyles from './MuiStyles';
 import Header from './Parts/Header';
 import Home from './Home/Home';
-import Posts from './Posts/Posts';
-import Post from './Posts/Post';
+import PostsRouter from './Posts/PostsRouter';
 import Error404 from './Error404/Error404';
 import Footer from './Parts/Footer';
 
@@ -42,10 +41,7 @@ const Application: React.FunctionComponent = () => {
 							<Home />
 						</Route>
 						<Route path="/posts">
-							<Posts />
-						</Route>
-						<Route path="/posts/:post">
-							<Post />
+							<PostsRouter />
 						</Route>
 						<Route>
 							<Error404 />

@@ -1,4 +1,4 @@
-import { showAlert } from './actions';
+/*import { showAlert } from './actions';
 import { CREATE_POST } from './actionTypes';
 
 const antiFreak = ['freak', 'фрик'];
@@ -14,4 +14,4 @@ export function forbiddenWordsMiddleware(state: any) {
 
 		}
 	}
-}
+}*/

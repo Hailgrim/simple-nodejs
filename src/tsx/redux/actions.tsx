@@ -1,8 +1,9 @@
-import { IPost } from "../types";
 import {
 	LOGIN, LOGOUT, HIDE_LOADER, SHOW_LOADER, LOADER_PROGRESS, SHOW_ALERT, HIDE_ALERT,
-	CREATE_POST, GET_POSTS, REQUEST_POSTS
+	REQUEST_POSTS, REQUEST_POST, CLEAR_POST
 } from "./actionTypes";
+
+/* ---------- START: App ---------- */
 
 export function showLoader() {
 	return {
@@ -48,12 +49,9 @@ export function hideAlert() {
 	};
 }
 
-export function createUser(user: IPost) {
-	return {
-		type: CREATE_POST,
-		payload: user
-	};
-}
+/* ---------- END: App ---------- */
+
+/* ---------- START: Posts ---------- */
 
 export function getPosts(params: any) {
 	return {
@@ -62,9 +60,17 @@ export function getPosts(params: any) {
 	};
 }
 
-export function getUser(params: any) {
+export function getPost(params: any) {
 	return {
-		type: REQUEST_POSTS,
+		type: REQUEST_POST,
 		payload: params
 	};
 }
+
+export function clearPost() {
+	return {
+		type: CLEAR_POST
+	};
+}
+
+/* ---------- END: Posts ---------- */

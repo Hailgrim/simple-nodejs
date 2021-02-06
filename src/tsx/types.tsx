@@ -1,4 +1,4 @@
-export interface IPost {
+export type IPost = {
 	id: number;
 	timestamp: number,
 	title: string;

@@ -36,7 +36,6 @@ const customStyles = makeStyles((theme) => ({
 	},
 	cardMedia: {
 		position: 'relative',
-		paddingTop: '56.25%', // 16:9
 		paddingBottom: 'unset',
 		backgroundColor: theme.palette.grey[700],
 		backgroundSize: 'cover',
@@ -56,8 +55,20 @@ const customStyles = makeStyles((theme) => ({
 			opacity: 1
 		}
 	},
+	cardMediaList: {
+		paddingTop: '56.25%', // 16:9
+	},
+	cardMediaSolo: {
+		paddingTop: '35%',
+		[theme.breakpoints.down('md')]: {
+			paddingTop: '56.25%', // 16:9
+		}
+	},
 	cardContent: {
 		flexGrow: 1
+	},
+	cardLink: {
+		textDecoration: 'none'
 	},
 	cardButton: {
 		padding: '4px 8px'
