@@ -12,7 +12,7 @@ type PostsPaginationProps = {
 	total_pages: number
 }
 
-const PostsPagination: React.FunctionComponent<PostsPaginationProps> = props => {
+const PostsPagination: React.FunctionComponent<PostsPaginationProps> = (props) => {
 	const dispatch = useDispatch();
 	const { path } = useRouteMatch();
 	const classes = customStyles();

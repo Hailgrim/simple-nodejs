@@ -65,7 +65,11 @@ const customStyles = makeStyles((theme) => ({
 		}
 	},
 	cardContent: {
-		flexGrow: 1
+		flexGrow: 1,
+		'& br': {
+			display: 'block',
+			marginTop: '5px'
+		}
 	},
 	cardLink: {
 		textDecoration: 'none'
@@ -78,19 +82,50 @@ const customStyles = makeStyles((theme) => ({
 		marginTop: 'auto',
 		backgroundColor: theme.palette.grey[800]
 	},
+	alert: {
+		padding: theme.spacing(2),
+		backgroundColor: 'rgba(255, 0, 0, 0.25)',
+		border: '1px solid darkred',
+		borderRadius: '4px'
+	},
 	modal: {
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
 		'& .body': {
+			position: 'relative',
 			maxWidth: '500px',
 			outline: 'none',
 			backgroundColor: theme.palette.background.paper,
 			boxShadow: theme.shadows[5],
 			padding: theme.spacing(3, 4),
+			'& h5': {
+				textAlign: 'center',
+				wordBreak: 'break-all'
+			},
+			'& .MuiInput-underline::after': {
+				borderBottomColor: 'gray'
+			},
+			'& .MuiFormLabel-root.Mui-focused': {
+				color: 'gray'
+			},
 			'& button': {
-				margin: theme.spacing(2) + 'px ' + theme.spacing(2) + 'px auto'
+				margin: theme.spacing(3) + 'px ' + theme.spacing(1) + 'px auto'
 			}
+		}
+	},
+	modalClose: {
+		position: 'absolute',
+		fill: 'white',
+		top: '5px',
+		right: '5px',
+		opacity: 0.5,
+		cursor: 'pointer',
+		transition: 'ease-out opacity 0.2s',
+		width: '24px',
+		height: '24px',
+		'&:hover': {
+			opacity: 1
 		}
 	},
 	loader: {

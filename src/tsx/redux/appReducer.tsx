@@ -1,28 +1,29 @@
-import { SHOW_LOADER, HIDE_LOADER, SHOW_ALERT, HIDE_ALERT, LOADER_PROGRESS, LOGIN, LOGOUT } from './actionTypes';
+import { LOADER_SHOW, LOADER_HIDE, LOADER_PROGRESS, LOGIN_PROCESSING, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT } from './actionTypes';
 
 const initialState = {
-	isAuthorize: false,
-	loading: false,
-	loadingProgress: 0,
-	alert: null
+	isAuthorize: false as boolean,
+	authProcessing: false as boolean,
+	authError: false as string | boolean,
+	loading: false as boolean,
+	loadingProgress: 0 as number
 };
 
 export const appReducer = (state: any = initialState, action: any) => {
 	switch (action.type) {
-		case LOGIN:
-			return { ...state, isAuthorize: true };
+		case LOGIN_PROCESSING:
+			return { ...state, authProcessing: true, authError: false };
+		case LOGIN_SUCCESS:
+			return { ...state, isAuthorize: true, authProcessing: false };
+		case LOGIN_FAILURE:
+			return { ...state, authProcessing: false, authError: action.payload };
 		case LOGOUT:
-			return { ...state, isAuthorize: false };
-		case SHOW_LOADER:
+			return { ...state, isAuthorize: false, authProcessing: false };
+		case LOADER_SHOW:
 			return { ...state, loading: true, loadingProgress: 0 };
-		case HIDE_LOADER:
+		case LOADER_HIDE:
 			return { ...state, loading: false, loadingProgress: 100 };
 		case LOADER_PROGRESS:
 			return { ...state, loadingProgress: action.payload };
-		case SHOW_ALERT:
-			return { ...state, alert: action.payload };
-		case HIDE_ALERT:
-			return { ...state, alert: null };
 		default: return state;
 	}
 }

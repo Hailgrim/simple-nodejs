@@ -1,19 +1,19 @@
 import {
-	LOGIN, LOGOUT, HIDE_LOADER, SHOW_LOADER, LOADER_PROGRESS, SHOW_ALERT, HIDE_ALERT,
-	REQUEST_POSTS, REQUEST_POST, CLEAR_POST
+	LOGIN_REQUEST, LOGOUT, LOADER_SHOW, LOADER_HIDE, LOADER_PROGRESS,
+	POSTS_REQUEST, POST_REQUEST, POST_CLEAR
 } from "./actionTypes";
 
 /* ---------- START: App ---------- */
 
 export function showLoader() {
 	return {
-		type: SHOW_LOADER
+		type: LOADER_SHOW
 	};
 }
 
 export function hideLoader() {
 	return {
-		type: HIDE_LOADER
+		type: LOADER_HIDE
 	};
 }
 
@@ -24,9 +24,10 @@ export function loaderProgress(percent: number) {
 	};
 }
 
-export function logIn() {
+export function logIn(params: any) {
 	return {
-		type: LOGIN
+		type: LOGIN_REQUEST,
+		payload: params
 	};
 }
 
@@ -36,40 +37,27 @@ export function logOut() {
 	};
 }
 
-export function showAlert(content: any) {
-	return {
-		type: SHOW_ALERT,
-		payload: content
-	};
-}
-
-export function hideAlert() {
-	return {
-		type: HIDE_ALERT
-	};
-}
-
 /* ---------- END: App ---------- */
 
 /* ---------- START: Posts ---------- */
 
 export function getPosts(params: any) {
 	return {
-		type: REQUEST_POSTS,
+		type: POSTS_REQUEST,
 		payload: params
 	};
 }
 
 export function getPost(params: any) {
 	return {
-		type: REQUEST_POST,
+		type: POST_REQUEST,
 		payload: params
 	};
 }
 
 export function clearPost() {
 	return {
-		type: CLEAR_POST
+		type: POST_CLEAR
 	};
 }
 

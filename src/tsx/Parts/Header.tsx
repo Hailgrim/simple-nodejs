@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppBar, Toolbar, Container, Modal, Fade, Backdrop, Button, Typography, Box } from '@material-ui/core';
+import { AppBar, Toolbar, Container, Modal, Fade, Backdrop, Typography, Box } from '@material-ui/core';
 
-import { logIn, logOut } from '../redux/actions';
+import { logOut } from '../redux/actions';
 import customStyles from '../MuiStyles';
+import AuthForm from './AuthForm';
 
 const Menu: React.FunctionComponent = () => {
 	const classes = customStyles();
@@ -20,14 +21,13 @@ const Menu: React.FunctionComponent = () => {
 		setAuthModal(false);
 	}
 
-	const handleAuthLogIn = () => {
-		handleAuthModalClose();
-		dispatch(logIn());
-	}
-
 	const handleAuthLogOut = () => {
 		dispatch(logOut());
 	}
+
+	React.useEffect(() => {
+		if (isAuthorize) handleAuthModalClose();
+	}, [isAuthorize]);
 
 	return (
 		<AppBar className={classes.appBar} position="fixed">
@@ -53,10 +53,10 @@ const Menu: React.FunctionComponent = () => {
 						<Fade in={authModal}>
 							<Box className="body">
 								<Typography variant="h5" gutterBottom>Авторизация</Typography>
-								<Typography variant="body1" gutterBottom>Заглушка авторизации. Для авторизации необходимо просто нажать на кнопку "Войти".</Typography>
-								<Box textAlign="center">
-									<Button variant="contained" onClick={handleAuthLogIn}>Войти</Button>
-								</Box>
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={classes.modalClose} onClick={handleAuthModalClose}>
+									<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+								</svg>
+								<AuthForm />
 							</Box>
 						</Fade>
 					</Modal>

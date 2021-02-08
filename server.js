@@ -85,6 +85,8 @@ server.on('request', function (req, res) {
 							res.setHeader('Content-Type', config.MIMETypes.json + '; charset=utf-8');
 							res.end(JSON.stringify(obj.posts));
 						} else {
+							res.statusCode = 404;
+							res.end(null);
 							console.log(error);
 						}
 					});
@@ -106,13 +108,38 @@ server.on('request', function (req, res) {
 								res.end(JSON.stringify(find));
 							} else {
 								res.statusCode = 404;
-								res.end(null);
+								res.end(JSON.stringify(false));
 							}
 						} else {
+							res.statusCode = 404;
+							res.end(null);
 							console.log(error);
 						}
 					});
 
+				} else if (path[1] == 'auth' && post.login && post.password) {
+
+					fs.readFile('./fake-db.txt', function (error, data) {
+						if (!error) {
+							let obj = JSON.parse(data);
+							if (obj.user.login == post.login && obj.user.password == post.password) {
+								res.statusCode = 200;
+								res.setHeader('Content-Type', config.MIMETypes.json + '; charset=utf-8');
+								res.end(JSON.stringify({ login: true }));
+							} else {
+								res.statusCode = 200;
+								res.end(JSON.stringify({ login: false }));
+							}
+						} else {
+							res.statusCode = 404;
+							res.end(null);
+							console.log(error);
+						}
+					});
+
+				} else {
+					res.statusCode = 404;
+					res.end(null);
 				}
 
 			});

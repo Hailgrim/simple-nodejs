@@ -5,3 +5,7 @@ export type IPost = {
 	text: string;
 	image: string;
 }
+
+export type PostRouterParams = {
+	id?: string
+}

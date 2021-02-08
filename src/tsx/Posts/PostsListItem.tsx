@@ -5,7 +5,7 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import customStyles from '../MuiStyles';
 import { IPost } from '../types';
 
-const PostsListItem: React.FunctionComponent<IPost> = props => {
+const PostsListItem: React.FunctionComponent<IPost> = (props) => {
 	const classes = customStyles();
 	const [src, srcLoad] = React.useState('');
 	const { path } = useRouteMatch();
@@ -20,7 +20,7 @@ const PostsListItem: React.FunctionComponent<IPost> = props => {
 		let loadTrigger = (event: any) => srcLoad(event.target.src);
 		let img = document.createElement('img');
 		img.src = props.image;
-		img.addEventListener('load', loadTrigger, {once: true});
+		img.addEventListener('load', loadTrigger, { once: true });
 	}, []);
 
 	return (

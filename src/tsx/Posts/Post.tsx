@@ -1,26 +1,19 @@
 import React from 'react';
-import { Card, CardContent, CardMedia, Container, Grid, Typography } from '@material-ui/core';
+import { Box, Card, CardContent, CardMedia, Container, Grid, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import customStyles from '../MuiStyles';
 import { clearPost, getPost } from '../redux/actions';
-import { IPost } from '../types';
-
-type PostParams = {
-	id: string
-}
+import { IPost, PostRouterParams } from '../types';
 
 const Post: React.FunctionComponent = () => {
 	const classes = customStyles();
 	const dispatch = useDispatch();
 	const [src, srcLoad] = React.useState('');
 	const post: IPost = useSelector((state: any) => state.posts.post);
-	const { id } = useParams() as PostParams;
-
-	const createMarkup = (html: string) => {
-		return {_html: html};
-	}
+	const postError = useSelector((state: any) => state.posts.postError);
+	const { id } = useParams() as PostRouterParams;
 
 	const date = React.useMemo(() => {
 		let date = new Date(post.timestamp);
@@ -42,14 +35,19 @@ const Post: React.FunctionComponent = () => {
 			let loadTrigger = (event: any) => srcLoad(event.target.src);
 			let img = document.createElement('img');
 			img.src = post.image;
-			img.addEventListener('load', loadTrigger, {once: true});
+			img.addEventListener('load', loadTrigger, { once: true });
 		}
 	}, [post.image]);
 
 	return (
 
 		<Container className={classes.cardGrid} maxWidth="md">
-			<Typography variant="h3" component="h1" className={classes.h1} color="inherit" gutterBottom>{post.title}</Typography>
+			{postError ? (
+				<Box textAlign="center" className={classes.alert}>{postError}</Box>
+			) : (
+					<Typography variant="h3" component="h1" className={classes.h1} color="inherit" gutterBottom>{post.title}</Typography>
+				)
+			}
 			<Grid container spacing={4}>
 				<Grid item xs={12}>
 					<Card data-id={post.id}>
@@ -60,7 +58,7 @@ const Post: React.FunctionComponent = () => {
 						/>
 						<CardContent className={classes.cardContent}>
 							<Typography gutterBottom variant="body2">{(post.timestamp > 0) ? date : '\xa0'}</Typography>
-							<Typography variant="body1">{post.text}</Typography>
+							<Typography variant="body1" dangerouslySetInnerHTML={{ __html: post.text }} />
 						</CardContent>
 					</Card>
 				</Grid>
