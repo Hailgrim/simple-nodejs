@@ -10,7 +10,7 @@ import AuthForm from './AuthForm';
 const Menu: React.FunctionComponent = () => {
 	const classes = customStyles();
 	const dispatch = useDispatch();
-	const isAuthorize = useSelector((state: any) => state.app.isAuthorize);
+	const isAuthorized = useSelector((state: any) => state.app.isAuthorized);
 	const [authModal, setAuthModal] = React.useState(false);
 
 	const handleAuthModalOpen = () => {
@@ -26,8 +26,8 @@ const Menu: React.FunctionComponent = () => {
 	}
 
 	React.useEffect(() => {
-		if (isAuthorize) handleAuthModalClose();
-	}, [isAuthorize]);
+		if (isAuthorized) handleAuthModalClose();
+	}, [isAuthorized]);
 
 	return (
 		<AppBar className={classes.appBar} position="fixed">
@@ -35,7 +35,8 @@ const Menu: React.FunctionComponent = () => {
 				<Container maxWidth="md">
 					<Link to="/">Главная</Link>
 					<Link to="/posts">Статьи</Link>
-					{!isAuthorize ? (
+					<Link to="/tasks">Задачи</Link>
+					{!isAuthorized ? (
 						<Typography component="a" className="auth" onClick={handleAuthModalOpen}>Авторизоваться</Typography>
 					) : (
 							<Typography component="a" className="auth" onClick={handleAuthLogOut}>Выйти</Typography>

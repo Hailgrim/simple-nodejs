@@ -25,9 +25,27 @@ const customStyles = makeStyles((theme) => ({
 	main: {
 		marginTop: '64px'
 	},
-	cardGrid: {
+	container: {
 		paddingTop: theme.spacing(4),
 		paddingBottom: theme.spacing(4)
+	},
+	taskForm: {
+		marginTop: theme.spacing(2),
+		marginBottom: theme.spacing(2)
+	},
+	taskItem: {
+		height: '100%',
+		display: 'flex',
+		flexDirection: 'row',
+		padding: '0px 14px 0px 10px'
+	},
+	taskContent: {
+		flexGrow: 1,
+		padding: theme.spacing(1)
+	},
+	taskComplete: {
+		textDecoration: 'line-through',
+		opacity: 0.5
 	},
 	cardList: {
 		height: '100%',
@@ -71,6 +89,9 @@ const customStyles = makeStyles((theme) => ({
 			marginTop: '5px'
 		}
 	},
+	cardActions: {
+		justifyContent: 'center'
+	},
 	cardLink: {
 		textDecoration: 'none'
 	},
@@ -83,10 +104,23 @@ const customStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.grey[800]
 	},
 	alert: {
-		padding: theme.spacing(2),
+		padding: theme.spacing(1),
+		margin: theme.spacing(1),
 		backgroundColor: 'rgba(255, 0, 0, 0.25)',
 		border: '1px solid darkred',
-		borderRadius: '4px'
+		borderRadius: '4px',
+		textAlign: 'center'
+	},
+	form: {
+		'& .MuiOutlinedInput-root:hover fieldset': {
+			borderColor: 'darkgray'
+		},
+		'& .MuiOutlinedInput-root.Mui-focused fieldset': {
+			borderColor: 'gray'
+		},
+		'& .MuiFormLabel-root.Mui-focused': {
+			color: 'gray'
+		}
 	},
 	modal: {
 		display: 'flex',
@@ -94,7 +128,7 @@ const customStyles = makeStyles((theme) => ({
 		justifyContent: 'center',
 		'& .body': {
 			position: 'relative',
-			maxWidth: '500px',
+			maxWidth: '450px',
 			outline: 'none',
 			backgroundColor: theme.palette.background.paper,
 			boxShadow: theme.shadows[5],
@@ -102,12 +136,6 @@ const customStyles = makeStyles((theme) => ({
 			'& h5': {
 				textAlign: 'center',
 				wordBreak: 'break-all'
-			},
-			'& .MuiInput-underline::after': {
-				borderBottomColor: 'gray'
-			},
-			'& .MuiFormLabel-root.Mui-focused': {
-				color: 'gray'
 			},
 			'& button': {
 				margin: theme.spacing(3) + 'px ' + theme.spacing(1) + 'px auto'

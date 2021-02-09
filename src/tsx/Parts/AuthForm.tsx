@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Box, FormControl, InputLabel, Input } from '@material-ui/core';
+import { Button, Box, TextField } from '@material-ui/core';
 
 import { logIn } from '../redux/actions';
 import customStyles from '../MuiStyles';
+import Alert from './Alert';
 
 const AuthForm: React.FunctionComponent = () => {
 	const dispatch = useDispatch();
@@ -27,18 +28,10 @@ const AuthForm: React.FunctionComponent = () => {
 	}
 
 	return (
-		<form onSubmit={handleAuthLogIn}>
-			{authError &&
-				<Box textAlign="center" className={classes.alert}>{authError}</Box>
-			}
-			<FormControl size="medium" margin="dense" disabled={authProcessing} fullWidth required>
-				<InputLabel htmlFor="email">E-mail</InputLabel>
-				<Input id="email" aria-describedby="E-mail адресс пользователя" onChange={handleLoginChange} />
-			</FormControl>
-			<FormControl size="medium" margin="dense" disabled={authProcessing} fullWidth required>
-				<InputLabel htmlFor="password">Пароль</InputLabel>
-				<Input id="password" aria-describedby="Пароль пользователя" onChange={handlePasswordChange} />
-			</FormControl>
+		<form className={classes.form} onSubmit={handleAuthLogIn}>
+			{authError && <Alert content={authError} />}
+			<TextField type="text" margin="dense" size="small" id="email" label="E-mail" variant="outlined" onChange={handleLoginChange} fullWidth required />
+			<TextField type="password" margin="dense" size="small" id="password" label="Пароль" variant="outlined" onChange={handlePasswordChange} fullWidth required />
 			<Box textAlign="center">
 				<Button type="submit" variant="contained" disabled={authProcessing}>{authProcessing ? 'Подождите' : 'Войти'}</Button>
 			</Box>

@@ -8,6 +8,7 @@ import customStyles from '../MuiStyles';
 import { IPost } from '../types';
 import PostsListItem from './PostsListItem';
 import PostsPagination from './PostsPagination';
+import Alert from '../Parts/Alert';
 
 const Posts: React.FunctionComponent = () => {
 	const classes = customStyles();
@@ -23,12 +24,12 @@ const Posts: React.FunctionComponent = () => {
 	}, [query]);
 
 	return (
-		<Container className={classes.cardGrid} maxWidth="md">
+		<Container className={classes.container} maxWidth="md">
 			<Typography variant="h3" component="h1" className={classes.h1} color="inherit" gutterBottom>Статьи</Typography>
 			<Grid container spacing={4}>
 				{listError &&
 					<Grid item xs={12}>
-						<Box textAlign="center" className={classes.alert}>{listError}</Box>
+						<Alert content={listError} />
 					</Grid>
 				}
 				{list.map((post: IPost) =>

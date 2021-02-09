@@ -8,6 +8,7 @@ import customStyles from './MuiStyles';
 import Header from './Parts/Header';
 import Home from './Home/Home';
 import PostsRouter from './Posts/PostsRouter';
+import Tasks from './Tasks/Tasks';
 import Error404 from './Error404/Error404';
 import Footer from './Parts/Footer';
 
@@ -42,6 +43,9 @@ const Application: React.FunctionComponent = () => {
 						</Route>
 						<Route path="/posts">
 							<PostsRouter />
+						</Route>
+						<Route path="/tasks">
+							<Tasks />
 						</Route>
 						<Route>
 							<Error404 />

@@ -1,11 +1,12 @@
 import React from 'react';
-import { Box, Card, CardContent, CardMedia, Container, Grid, Typography } from '@material-ui/core';
+import { Card, CardContent, CardMedia, Container, Grid, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import customStyles from '../MuiStyles';
 import { clearPost, getPost } from '../redux/actions';
 import { IPost, PostRouterParams } from '../types';
+import Alert from '../Parts/Alert';
 
 const Post: React.FunctionComponent = () => {
 	const classes = customStyles();
@@ -41,9 +42,9 @@ const Post: React.FunctionComponent = () => {
 
 	return (
 
-		<Container className={classes.cardGrid} maxWidth="md">
+		<Container className={classes.container} maxWidth="md">
 			{postError ? (
-				<Box textAlign="center" className={classes.alert}>{postError}</Box>
+				<Alert content={postError} />
 			) : (
 					<Typography variant="h3" component="h1" className={classes.h1} color="inherit" gutterBottom>{post.title}</Typography>
 				)

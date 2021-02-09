@@ -24,7 +24,7 @@ const PostsListItem: React.FunctionComponent<IPost> = (props) => {
 	}, []);
 
 	return (
-		<Card className={classes.cardList} data-id={props.id}>
+		<Card className={classes.cardList}>
 			<CardMedia
 				className={`${classes.cardMedia} ${classes.cardMediaList} ${(src != '') ? '' : 'loading'}`}
 				image={src != '' ? src : '#'}
@@ -34,7 +34,7 @@ const PostsListItem: React.FunctionComponent<IPost> = (props) => {
 				<Typography gutterBottom variant="h5">{props.title}</Typography>
 				<Typography variant="body1">{(props.timestamp > 0) ? date : '\xa0'}</Typography>
 			</CardContent>
-			<CardActions>
+			<CardActions className={classes.cardActions}>
 				{props.id > -1 ? (
 					<Link className={classes.cardLink} to={{ pathname: `${path}/${props.id}` }}>
 						<Button size="small" className={classes.cardButton}>Открыть</Button>

@@ -1,8 +1,17 @@
 import React from 'react';
+import { Box } from '@material-ui/core';
 
-const Alert: React.FunctionComponent<any> = props => {
+import customStyles from '../MuiStyles';
+
+type AlertProps = {
+	content: string
+}
+
+const Alert: React.FunctionComponent<AlertProps> = props => {
+	const classes = customStyles();
+
 	return (
-		<div>{props.content}</div>
+		<Box className={classes.alert}>{props.content}</Box>
 	);
 }
 export default Alert;

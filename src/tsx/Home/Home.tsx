@@ -8,7 +8,7 @@ const Home: React.FunctionComponent = () => {
 	const classes = customStyles();
 
 	return (
-		<Container className={classes.cardGrid} maxWidth="md">
+		<Container className={classes.container} maxWidth="md">
 			<Typography variant="h3" component="h1" className={classes.h1} color="inherit" gutterBottom>
 				Главная
 			</Typography>
