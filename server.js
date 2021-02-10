@@ -1,24 +1,28 @@
+/*
+// DEPRECATED
+
 const config = require(__dirname + '/server-config.json'); // подключение конфига с настройками
 const http = require('http'); // модуль для создания сервера
+const path = require('path');
 const server = new http.Server(); // создание объекта сервера
 const qs = require('querystring'); // модуль для парсинга тела POST/GET-запроса в виде urlencoded-строки
 const fs = require('fs'); // модуль файловой системы
 const Readable = require('stream').Readable; // конструктор для создания читаемого потока, который берётся из модуля потоков
 const port = process.env.PORT || config.port;
 
-server.on('request', function (req, res) {
+server.on('request', (req, res) => {
 
-	let path = req.url.split('/');
-	if (path.length > 2 && path[path.length - 1] == '') {
-		path = path.slice(0, -1);
-		res.writeHead(301, { 'Location': path.join('/') });
+	let urlPath = req.url.split('/');
+	if (urlPath.length > 2 && urlPath[urlPath.length - 1] == '') {
+		urlPath = urlPath.slice(0, -1);
+		res.writeHead(301, { 'Location': urlPath.join('/') });
 		res.end();
 	} else {
 
 		if (req.method == 'GET') {
 
 			let filePath = config.publicFolder + req.url.split('?', 1)[0];
-			if (path[1] == 'files') {
+			if (urlPath[1] == 'files') {
 				filePath = '.' + req.url.split('?', 1)[0];
 			}
 			fs.stat(filePath, (err, stats) => {
@@ -39,7 +43,7 @@ server.on('request', function (req, res) {
 					});
 				} else {
 					res.statusCode = 200;
-					let fileType = config.MIMETypes[filePath.substr(filePath.lastIndexOf('.') + 1)];
+					let fileType = config.MIMETypes[path.extname(filePath).substr(1)];
 					if (fileType !== undefined) {
 						res.setHeader('Content-Type', fileType + '; charset=utf-8');
 					} else {
@@ -56,7 +60,7 @@ server.on('request', function (req, res) {
 		if (req.method == 'POST') {
 			let post = '';
 
-			req.on('data', function (chunk) {
+			req.on('data', (chunk) => {
 				if (chunk !== null) post += chunk;
 				if (post.length > 1e4) {
 					res.statusCode = 413;
@@ -65,7 +69,7 @@ server.on('request', function (req, res) {
 			});
 
 			// в случае, если POST-запрос успешно принят, решаем, что делать с ним дальше
-			req.on('end', function () {
+			req.on('end', () => {
 
 				if (req.headers['content-type'] == config.MIMETypes.form && post !== '') {
 					post = qs.parse(post);
@@ -73,9 +77,9 @@ server.on('request', function (req, res) {
 					post = {};
 				}
 
-				if (path[1] == 'posts' && !path[2]) {
+				if (urlPath[1] == 'posts' && !urlPath[2]) {
 
-					fs.readFile('./fake-db.txt', function (error, data) {
+					fs.readFile('./fake-db.txt', (error, data) => {
 						if (!error) {
 							let obj = JSON.parse(data);
 							if (!post.page) post.page = 1;
@@ -91,14 +95,14 @@ server.on('request', function (req, res) {
 						}
 					});
 
-				} else if (path[1] == 'posts' && path[2]) {
+				} else if (urlPath[1] == 'posts' && urlPath[2]) {
 
-					fs.readFile('./fake-db.txt', function (error, data) {
+					fs.readFile('./fake-db.txt', (error, data) => {
 						if (!error) {
 							let obj = JSON.parse(data);
 							let find = false;
 							obj.posts.list.forEach((item) => {
-								if (item.id == path[2]) {
+								if (item.id == urlPath[2]) {
 									find = item;
 								}
 							});
@@ -117,9 +121,9 @@ server.on('request', function (req, res) {
 						}
 					});
 
-				} else if (path[1] == 'auth' && post.login && post.password) {
+				} else if (urlPath[1] == 'auth' && post.login && post.password) {
 
-					fs.readFile('./fake-db.txt', function (error, data) {
+					fs.readFile('./fake-db.txt', (error, data) => {
 						if (!error) {
 							let obj = JSON.parse(data);
 							if (obj.user.login == post.login && obj.user.password == post.password) {
@@ -151,4 +155,97 @@ server.on('request', function (req, res) {
 });
 
 server.timeout = config.timeout;
-server.listen(port);
+server.listen(port);*/
+
+import express from 'express';
+import path from 'path';
+import fs from 'fs';
+import bodyParser from 'body-parser';
+
+import config from './server-config.json';
+
+const __dirname = path.resolve();
+const PORT = process.env.PORT || config.port;
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.resolve(__dirname, config.publicFolder)));
+app.use('/files', express.static(path.resolve(__dirname, 'files')));
+
+app.get('/', (req, res) => {
+	res.status(200).sendFile(path.resolve(__dirname, config.publicFolder, 'index.html'));
+});
+
+app.route('/posts')
+	.get((req, res) => {
+		res.status(200).sendFile(path.resolve(__dirname, config.publicFolder, 'index.html'));
+	})
+	.post((req, res) => {
+
+		fs.readFile('./fake-db.txt', (error, data) => {
+			if (!error) {
+				let obj = JSON.parse(data);
+				let page = req.body.page ? parseInt(req.body.page) : 1;
+				obj.posts.list = obj.posts.list.slice(6 * (page - 1), 6 * page);
+				obj.posts.page = page;
+				res.status(200).send(JSON.stringify(obj.posts));
+			} else {
+				res.status(404).send(null);
+			}
+		});
+
+	});
+
+app.route('/posts/:id')
+	.get((req, res) => {
+		res.status(200).sendFile(path.resolve(__dirname, config.publicFolder, 'index.html'));
+	})
+	.post((req, res) => {
+
+		fs.readFile('./fake-db.txt', (error, data) => {
+			if (!error) {
+				let obj = JSON.parse(data);
+				let find = false;
+				obj.posts.list.forEach((item) => {
+					if (item.id == req.params.id) {
+						find = item;
+					}
+				});
+				if (find) {
+					res.status(200).send(JSON.stringify(find));
+				} else {
+					res.status(404).send(null);
+				}
+			} else {
+				res.status(404).send(null);
+			}
+		});
+
+	});
+
+app.get('/tasks', (req, res) => {
+	res.status(200).sendFile(path.resolve(__dirname, config.publicFolder, 'index.html'));
+});
+
+app.post('/auth', (req, res) => {
+
+	fs.readFile('./fake-db.txt', (error, data) => {
+		if (!error) {
+			let obj = JSON.parse(data);
+			if (obj.user.login == req.body.login && obj.user.password == req.body.password) {
+				res.status(200).send(JSON.stringify({ login: true }));
+			} else {
+				res.status(200).send(JSON.stringify({ login: false }));
+			}
+		} else {
+			res.status(404).send(null);
+		}
+	});
+
+});
+
+app.get('*', (req, res) => {
+	res.status(404).sendFile(path.resolve(__dirname, config.publicFolder, 'index.html'));
+});
+
+app.listen(PORT);

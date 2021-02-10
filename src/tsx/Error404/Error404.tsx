@@ -13,7 +13,7 @@ const Error404: React.FunctionComponent = () => {
 	return (
 		<Container className={classes.container} maxWidth="md">
 			<Typography variant="h3" component="h1" color="inherit" gutterBottom>
-				Ошибка 404
+				Ошибка
 			</Typography>
 			<Typography variant="h4" color="inherit" gutterBottom>
 				Запрашиваемая страница не существует

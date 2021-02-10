@@ -104,8 +104,8 @@ const customStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.grey[800]
 	},
 	alert: {
-		padding: theme.spacing(1),
-		margin: theme.spacing(1),
+		padding: `${theme.spacing(1)}px 0px`,
+		margin: `${theme.spacing(1)}px 0px`,
 		backgroundColor: 'rgba(255, 0, 0, 0.25)',
 		border: '1px solid darkred',
 		borderRadius: '4px',
@@ -138,7 +138,7 @@ const customStyles = makeStyles((theme) => ({
 				wordBreak: 'break-all'
 			},
 			'& button': {
-				margin: theme.spacing(3) + 'px ' + theme.spacing(1) + 'px auto'
+				margin: `${theme.spacing(3)}px ${theme.spacing(1)}px auto`
 			}
 		}
 	},
