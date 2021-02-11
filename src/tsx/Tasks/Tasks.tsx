@@ -32,7 +32,7 @@ const Tasks: React.FunctionComponent = () => {
 
 	return (
 		<Container className={classes.container} maxWidth="md">
-			<Typography variant="h3" component="h1" className={classes.h1} color="inherit" gutterBottom>Задачи</Typography>
+			<Typography variant="h3" component="h1" className={classes.h1} color="inherit" gutterBottom>Заметки</Typography>
 			<Grid container spacing={1}>
 				<Grid item xs={12}>
 					<TaskForm />

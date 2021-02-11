@@ -30,7 +30,7 @@ const TaskForm: React.FunctionComponent = () => {
 		<form className={`${classes.form} ${classes.taskForm}`} onSubmit={handleTaskAdd}>
 			<Grid container spacing={4} alignItems="center">
 				<Grid item xs={8} md={10}>
-					<TextField size="small" name="task" label="Текст задачи" variant="outlined" fullWidth required onChange={handleTaskTextChange} />
+					<TextField size="small" name="task" label="Текст заметки" variant="outlined" fullWidth required onChange={handleTaskTextChange} />
 				</Grid>
 				<Grid item xs={4} md={2}>
 					<Button type="submit" variant="text" size="medium" fullWidth>Добавить</Button>

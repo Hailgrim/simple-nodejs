@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppBar, Toolbar, Container, Modal, Fade, Backdrop, Typography, Box } from '@material-ui/core';
 
@@ -33,9 +33,9 @@ const Menu: React.FunctionComponent = () => {
 		<AppBar className={classes.appBar} position="fixed">
 			<Toolbar className={classes.toolbar}>
 				<Container maxWidth="md">
-					<Link to="/">Главная</Link>
-					<Link to="/posts">Статьи</Link>
-					<Link to="/tasks">Задачи</Link>
+					<NavLink to="/" exact>Главная</NavLink>
+					<NavLink to="/posts">Статьи</NavLink>
+					<NavLink to="/tasks">Заметки</NavLink>
 					{!isAuthorized ? (
 						<Typography component="a" className="auth" onClick={handleAuthModalOpen}>Авторизоваться</Typography>
 					) : (

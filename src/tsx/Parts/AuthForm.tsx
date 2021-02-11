@@ -30,8 +30,8 @@ const AuthForm: React.FunctionComponent = () => {
 	return (
 		<form className={classes.form} onSubmit={handleAuthLogIn}>
 			{authError && <Alert content={authError} />}
-			<TextField type="text" margin="dense" size="small" id="email" label="E-mail" variant="outlined" onChange={handleLoginChange} fullWidth required />
-			<TextField type="password" margin="dense" size="small" id="password" label="Пароль" variant="outlined" onChange={handlePasswordChange} fullWidth required />
+			<TextField type="text" margin="dense" size="small" id="email" label="E-mail" variant="outlined" value={login} onChange={handleLoginChange} fullWidth required />
+			<TextField type="password" margin="dense" size="small" id="password" label="Пароль" variant="outlined" value={password}  onChange={handlePasswordChange} fullWidth required />
 			<Box textAlign="center">
 				<Button type="submit" variant="contained" disabled={authProcessing}>{authProcessing ? 'Подождите' : 'Войти'}</Button>
 			</Box>

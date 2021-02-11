@@ -14,11 +14,12 @@
     "@types/react-dom": "^17.0.0",
     "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7",
+    "@types/react-transition-group": "^4.4.0",
     "@types/redux": "^3.6.0",
     "@types/webpack": "^4.41.26",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^7.0.0",
-    "css-loader": "^5.0.1",
+    "css-loader": "^5.0.2",
     "css-minimizer-webpack-plugin": "^1.2.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.1",
@@ -34,8 +35,8 @@
     "redux-thunk": "^2.3.0",
     "sass-loader": "^10.1.1",
     "style-loader": "^2.0.0",
-    "ts-loader": "^8.0.15",
-    "typescript": "^4.1.3",
+    "ts-loader": "^8.0.17",
+    "typescript": "^4.1.5",
     "webpack": "^5.21.2",
     "webpack-cli": "^4.5.0"
   },
@@ -44,7 +45,7 @@
     "ds": "nodemon --experimental-json-modules server.js",
     "db": "webpack --config webpack.config.js --mode=development",
     "pb": "webpack --config webpack.config.js --mode=production",
-    "dbs": "webpack --config webpack.config.js --mode=development & nodemon server.js"
+    "dbs": "webpack --config webpack.config.js --mode=development & nodemon --experimental-json-modules server.js"
   },
   "repository": {
     "url": "https://github.com/Hailgrim/simple-nodejs"
