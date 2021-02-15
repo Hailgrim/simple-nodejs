@@ -22,10 +22,10 @@ const Home: React.FunctionComponent = () => {
 				<Link to="/fake" style={{ color: 'lightgray' }}>Ссылка на несуществующую страницу</Link>
 			</Typography>
 			<Typography variant="body1" color="inherit" gutterBottom>
-				<Link to="/fake" style={{ color: 'lightgray' }}>Ссылка на несуществующую страницу списка статей</Link>
+				<Link to="/posts?page=3" style={{ color: 'lightgray' }}>Ссылка на несуществующую страницу списка статей</Link>
 			</Typography>
 			<Typography variant="body1" color="inherit" gutterBottom>
-				<Link to="/fake" style={{ color: 'lightgray' }}>Ссылка на несуществующую страницу конкретной статьи</Link>
+				<Link to="/posts/123" style={{ color: 'lightgray' }}>Ссылка на несуществующую страницу конкретной статьи</Link>
 			</Typography>
 			<Typography variant="subtitle1" color="inherit" gutterBottom>
 				Авторизация и заметки:

@@ -55,7 +55,7 @@ app.route('/posts/:id')
 				if (find) {
 					res.status(200).send(JSON.stringify(find));
 				} else {
-					res.status(404).send(null);
+					res.status(404).send(JSON.stringify(null));
 				}
 			} else {
 				res.status(404).send(null);
