@@ -1,7 +1,7 @@
 import { ITask } from "../types";
 import {
 	LOGIN_REQUEST, LOGOUT, LOADER_SHOW, LOADER_HIDE, LOADER_PROGRESS,
-	POSTS_REQUEST, POST_REQUEST, POST_CLEAR,
+	POSTS_REQUEST, POSTS_CLEAR, POST_REQUEST, POST_CLEAR,
 	TASK_ADD, TASK_COMPLETE, TASK_INCOMPLETE, TASK_DELETE
 } from "./actionTypes";
 
@@ -54,6 +54,12 @@ export function getPost(id: number | undefined) {
 	return {
 		type: POST_REQUEST,
 		payload: id
+	};
+}
+
+export function clearPosts() {
+	return {
+		type: POSTS_CLEAR
 	};
 }
 

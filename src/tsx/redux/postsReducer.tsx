@@ -1,4 +1,4 @@
-import { POSTS_SUCCESS, POSTS_FAILURE, POST_SUCCESS, POST_FAILURE, POST_CLEAR } from './actionTypes';
+import { POSTS_SUCCESS, POSTS_FAILURE, POST_SUCCESS, POST_FAILURE, POST_CLEAR, POSTS_CLEAR } from './actionTypes';
 import { IPost } from '../types';
 
 const initialState = {
@@ -34,6 +34,8 @@ export const postsReducer = (state: any = initialState, action: any) => {
 			return { ...state, list: action.payload.list, page: action.payload.page, total_pages: action.payload.total_pages, listError: false };
 		case POSTS_FAILURE:
 			return { ...state, list: initialState.list, page: 0, total_pages: 1, listError: action.payload };
+		case POSTS_CLEAR:
+			return { ...state, post: initialState.list, listError: false };
 		case POST_SUCCESS:
 			return { ...state, post: action.payload, postError: false };
 		case POST_FAILURE:

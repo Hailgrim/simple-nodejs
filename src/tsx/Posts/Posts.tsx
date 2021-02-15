@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Typography, Grid, Box } from '@material-ui/core';
+import { Container, Typography, Grid } from '@material-ui/core';
 import { useLocation } from 'react-router-dom';
 
-import { getPosts, hideLoader } from '../redux/actions';
+import { clearPosts, getPosts } from '../redux/actions';
 import customStyles from '../MuiStyles';
 import { IPost } from '../types';
 import PostsListItem from './PostsListItem';
@@ -22,6 +22,10 @@ const Posts: React.FunctionComponent = () => {
 	React.useEffect(() => {
 		dispatch(getPosts(query));
 	}, [query]);
+
+	React.useEffect(() => {
+		dispatch(clearPosts());
+	}, []);
 
 	return (
 		<Container className={classes.container} maxWidth="md">

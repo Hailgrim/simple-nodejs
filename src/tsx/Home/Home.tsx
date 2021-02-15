@@ -15,7 +15,7 @@ const Home: React.FunctionComponent = () => {
 			<Typography variant="h4" color="inherit" gutterBottom>
 				Начальная страница тестовой сборки
 			</Typography>
-			<Typography variant="subtitle1" color="inherit" gutterBottom>
+			<Typography variant="h6" color="inherit" gutterBottom>
 				Примеры обработки несуществующих страниц:
 			</Typography>
 			<Typography variant="body1" color="inherit" gutterBottom>
@@ -27,7 +27,7 @@ const Home: React.FunctionComponent = () => {
 			<Typography variant="body1" color="inherit" gutterBottom>
 				<Link to="/posts/123" style={{ color: 'lightgray' }}>Ссылка на несуществующую страницу конкретной статьи</Link>
 			</Typography>
-			<Typography variant="subtitle1" color="inherit" gutterBottom>
+			<Typography variant="h6" color="inherit" gutterBottom>
 				Авторизация и заметки:
 			</Typography>
 			<Typography variant="body1" color="inherit" gutterBottom>
