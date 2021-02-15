@@ -16,6 +16,7 @@ const TaskListItem: React.FunctionComponent<ITask> = (props) => {
 	}
 
 	const handleTaskToggle = () => {
+		if (!isAuthorized) return;
 		if (props.complete) {
 			dispatch(incompleteTask(props.id));
 		} else {

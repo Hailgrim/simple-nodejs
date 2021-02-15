@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid, Typography } from '@material-ui/core';
+import { Box, Container, Grid, Typography } from '@material-ui/core';
 import { useSelector, useStore } from 'react-redux';
 
 import customStyles from '../MuiStyles';
@@ -40,9 +40,19 @@ const Tasks: React.FunctionComponent = () => {
 				{listParseError &&
 					<Alert content={listParseError} />
 				}
-				{list.map((task: ITask) =>
-					<Grid item key={task.id} xs={12}>
-						<TaskListItem {...task} />
+				{list.length > 0 ? (
+
+					list.map((task: ITask) =>
+						<Grid item key={task.id} xs={12}>
+							<TaskListItem {...task} />
+						</Grid>
+					)
+
+				) : (
+					<Grid item xs={12}>
+						<Box color="inherit" textAlign="center" paddingTop="25px">
+							Список заметок пуст
+						</Box>
 					</Grid>
 				)}
 			</Grid>
