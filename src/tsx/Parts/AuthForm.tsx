@@ -5,13 +5,14 @@ import { Button, Box, TextField } from '@material-ui/core';
 import { logIn } from '../redux/actions';
 import customStyles from '../MuiStyles';
 import Alert from './Alert';
+import { rootReducerContainer } from '../types';
 
 const AuthForm: React.FunctionComponent = () => {
 	const dispatch = useDispatch();
 	const [login, setLogin] = React.useState('');
 	const [password, setPassword] = React.useState('');
-	const authProcessing = useSelector((state: any) => state.app.authProcessing);
-	const authError = useSelector((state: any) => state.app.authError);
+	const authProcessing = useSelector<rootReducerContainer, boolean>((state) => state.app.authProcessing);
+	const authError = useSelector<rootReducerContainer, string | boolean>((state) => state.app.authError);
 	const classes = customStyles();
 
 	const handleLoginChange = (event: React.ChangeEvent<HTMLInputElement>) => {

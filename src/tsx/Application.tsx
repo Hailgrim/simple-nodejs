@@ -11,6 +11,7 @@ import PostsRouter from './Posts/PostsRouter';
 import Tasks from './Tasks/Tasks';
 import Error404 from './Error404/Error404';
 import Footer from './Parts/Footer';
+import { rootReducerContainer } from './types';
 
 const THEME = createMuiTheme({
 	palette: {
@@ -21,8 +22,8 @@ const THEME = createMuiTheme({
 const Application: React.FunctionComponent = () => {
 	const classes = customStyles();
 	const dispatch = useDispatch();
-	const loading = useSelector((state: any) => state.app.loading);
-	const loadingProgress = useSelector((state: any) => state.app.loadingProgress);
+	const loading = useSelector((state: rootReducerContainer) => state.app.loading);
+	const loadingProgress = useSelector((state: rootReducerContainer) => state.app.loadingProgress);
 
 	React.useEffect(() => {
 		document.getElementById('cube-loader')?.classList.remove('loading');

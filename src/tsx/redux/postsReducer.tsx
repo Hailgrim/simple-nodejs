@@ -1,20 +1,20 @@
 import { POSTS_SUCCESS, POSTS_FAILURE, POST_SUCCESS, POST_FAILURE, POST_CLEAR, POSTS_CLEAR } from './actionTypes';
-import { IPost } from '../types';
+import { IPost, postsReducerParams, ReduxActionParams } from '../types';
 
 const initialState = {
 	list: new Array<IPost>(),
-	listError: false as string | boolean,
+	listError: false,
 	post: {
 		id: -1,
 		image: '',
 		title: '\xa0',
 		text: '\xa0\xa0\xa0',
 		timestamp: 0
-	} as IPost,
-	postError: false as string | boolean,
-	page: 1 as number,
-	total_pages: 1 as number
-};
+	},
+	postError: false,
+	page: 1,
+	total_pages: 1
+} as postsReducerParams;
 
 if (initialState.list.length == 0) {
 	for (let i = -3; i < 0; i++) {
@@ -28,7 +28,7 @@ if (initialState.list.length == 0) {
 	}
 }
 
-export const postsReducer = (state: any = initialState, action: any) => {
+export const postsReducer = (state: postsReducerParams = initialState, action: ReduxActionParams) => {
 	switch (action.type) {
 		case POSTS_SUCCESS:
 			return { ...state, list: action.payload.list, page: action.payload.page, total_pages: action.payload.total_pages, listError: false };

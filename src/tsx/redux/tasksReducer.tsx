@@ -1,9 +1,9 @@
-import { ITask } from "../types";
+import { ITask, ReduxActionParams, tasksReducerParams } from "../types";
 import { TASK_ADD, TASK_COMPLETE, TASK_DELETE, TASK_INCOMPLETE } from "./actionTypes";
 
 const initialState = {
 	list: new Array<ITask>()
-}
+} as tasksReducerParams;
 
 try {
 	let list = window.localStorage.getItem('Tasks');
@@ -12,7 +12,7 @@ try {
 	initialState.list = [];
 }
 
-export const tasksReducer = (state: any = initialState, action: any) => {
+export const tasksReducer = (state: tasksReducerParams = initialState, action: ReduxActionParams) => {
 	switch (action.type) {
 		case TASK_ADD:
 			return { ...state, list: state.list.concat(action.payload) }

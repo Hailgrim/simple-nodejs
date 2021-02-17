@@ -4,13 +4,13 @@ import { Box, Button, Grid, TextField } from '@material-ui/core';
 import customStyles from '../MuiStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTask } from '../redux/actions';
-import { ITask } from '../types';
+import { ITask, rootReducerContainer } from '../types';
 
 const TaskForm: React.FunctionComponent = () => {
 	const classes = customStyles();
 	const dispatch = useDispatch();
 	const [taskText, setTaskText] = React.useState('');
-	const isAuthorized = useSelector((state: any) => state.app.isAuthorized);
+	const isAuthorized = useSelector<rootReducerContainer, boolean>((state) => state.app.isAuthorized);
 
 	const handleTaskAdd = (event: React.SyntheticEvent<HTMLFormElement>) => {
 		event.preventDefault();

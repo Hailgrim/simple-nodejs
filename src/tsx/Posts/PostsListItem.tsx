@@ -17,7 +17,7 @@ const PostsListItem: React.FunctionComponent<IPost> = (props) => {
 	}, [props.timestamp]);
 
 	React.useEffect(() => {
-		let loadTrigger = (event: any) => srcLoad(event.target.src);
+		let loadTrigger = (event: Event) => srcLoad((event.target as HTMLImageElement).src);
 		let img = document.createElement('img');
 		img.src = props.image;
 		img.addEventListener('load', loadTrigger, { once: true });

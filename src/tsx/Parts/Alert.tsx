@@ -4,7 +4,7 @@ import { Box } from '@material-ui/core';
 import customStyles from '../MuiStyles';
 
 type AlertProps = {
-	content: string
+	content: string | boolean
 }
 
 const Alert: React.FunctionComponent<AlertProps> = props => {

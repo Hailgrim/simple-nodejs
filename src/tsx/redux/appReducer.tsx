@@ -1,14 +1,15 @@
+import { appReducerParams, ReduxActionParams } from '../types';
 import { LOADER_SHOW, LOADER_HIDE, LOADER_PROGRESS, LOGIN_PROCESSING, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT } from './actionTypes';
 
 const initialState = {
-	isAuthorized: false as boolean,
-	authProcessing: false as boolean,
-	authError: false as string | boolean,
-	loading: false as boolean,
-	loadingProgress: 0 as number
-};
+	isAuthorized: false,
+	authProcessing: false,
+	authError: false,
+	loading: false,
+	loadingProgress: 0
+} as appReducerParams;
 
-export const appReducer = (state: any = initialState, action: any) => {
+export const appReducer = (state: appReducerParams = initialState, action: ReduxActionParams) => {
 	switch (action.type) {
 		case LOGIN_PROCESSING:
 			return { ...state, authProcessing: true, authError: false };

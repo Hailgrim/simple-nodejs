@@ -4,13 +4,13 @@ import { useSelector, useStore } from 'react-redux';
 
 import customStyles from '../MuiStyles';
 import TaskForm from './TaskForm';
-import { ITask } from '../types';
+import { ITask, rootReducerContainer } from '../types';
 import TaskListItem from './TaskListItem';
 import Alert from '../Parts/Alert';
 
 const Tasks: React.FunctionComponent = () => {
 	const classes = customStyles();
-	const list = useSelector((state: any) => state.tasks.list);
+	const list = useSelector<rootReducerContainer, ITask[]>((state) => state.tasks.list);
 	const store = useStore();
 	const [listParseError, setListParseError] = React.useState('');
 

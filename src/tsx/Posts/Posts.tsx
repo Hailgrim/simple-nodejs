@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 
 import { clearPosts, getPosts } from '../redux/actions';
 import customStyles from '../MuiStyles';
-import { IPost } from '../types';
+import { IPost, rootReducerContainer } from '../types';
 import PostsListItem from './PostsListItem';
 import PostsPagination from './PostsPagination';
 import Alert from '../Parts/Alert';
@@ -13,10 +13,10 @@ import Alert from '../Parts/Alert';
 const Posts: React.FunctionComponent = () => {
 	const classes = customStyles();
 	const dispatch = useDispatch();
-	const list = useSelector((state: any) => state.posts.list);
-	const page = useSelector((state: any) => state.posts.page);
-	const total_pages = useSelector((state: any) => state.posts.total_pages);
-	const listError = useSelector((state: any) => state.posts.listError);
+	const list = useSelector<rootReducerContainer, IPost[]>((state) => state.posts.list);
+	const page = useSelector<rootReducerContainer, number>((state) => state.posts.page);
+	const total_pages = useSelector<rootReducerContainer, number>((state) => state.posts.total_pages);
+	const listError = useSelector<rootReducerContainer, string | boolean>((state) => state.posts.listError);
 	const query = useLocation().search;
 
 	React.useEffect(() => {

@@ -5,15 +5,15 @@ import { useParams } from 'react-router-dom';
 
 import customStyles from '../MuiStyles';
 import { clearPost, getPost } from '../redux/actions';
-import { IPost, PostRouterParams } from '../types';
+import { IPost, PostRouterParams, rootReducerContainer } from '../types';
 import Alert from '../Parts/Alert';
 
 const Post: React.FunctionComponent = () => {
 	const classes = customStyles();
 	const dispatch = useDispatch();
 	const [src, srcLoad] = React.useState('');
-	const post: IPost = useSelector((state: any) => state.posts.post);
-	const postError = useSelector((state: any) => state.posts.postError);
+	const post = useSelector<rootReducerContainer, IPost>((state) => state.posts.post);
+	const postError = useSelector<rootReducerContainer, string | boolean>((state) => state.posts.postError);
 	const { id } = useParams() as PostRouterParams;
 
 	const date = React.useMemo(() => {

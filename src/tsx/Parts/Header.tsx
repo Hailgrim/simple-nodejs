@@ -6,11 +6,12 @@ import { AppBar, Toolbar, Container, Modal, Fade, Backdrop, Typography, Box } fr
 import { logOut } from '../redux/actions';
 import customStyles from '../MuiStyles';
 import AuthForm from './AuthForm';
+import { rootReducerContainer } from '../types';
 
 const Menu: React.FunctionComponent = () => {
 	const classes = customStyles();
 	const dispatch = useDispatch();
-	const isAuthorized = useSelector((state: any) => state.app.isAuthorized);
+	const isAuthorized = useSelector<rootReducerContainer, boolean>((state) => state.app.isAuthorized);
 	const [authModal, setAuthModal] = React.useState(false);
 
 	const handleAuthModalOpen = () => {
